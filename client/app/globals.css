@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+@layer components {
+  h1 {
+    @apply font-bold lg:mt-2 text-lg md:text-2xl lg:text-3xl bg-gradient-to-b from-[#40ad6d] to-[#08aadb] bg-clip-text text-transparent text-center;
+  }
+}

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import "./globals.css";
+import QueryProvider from "@/components/providers/query-provider";
+import Header from "@/components/layout/Header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +25,6 @@ const vazirmatn = localFont({
   ],
 });
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,7 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html dir="rtl" lang="fa" data-theme="light" suppressHydrationWarning>
-      <body className={`${vazirmatn.className}`}>{children}</body>
+      <body className={`${vazirmatn.className}`}>
+        <Header/>
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   );
 }
