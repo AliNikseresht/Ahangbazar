@@ -50,11 +50,11 @@ export default function InteractiveSearchBox() {
         placeholder="جستجو موسیقی، هنرمند، آلبوم..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full bg-white text-gray-500 border rounded lg:rounded-box p-1 lg:p-1.5 border-gray-300 outline-none text-xs lg:text-sm"
+        className="w-full bg-transparent text-gray-500 border rounded lg:rounded-box p-1 lg:p-1.5 border-gray-300 outline-none text-xs lg:text-sm"
       />
 
       {searchTerm && (
-        <ul className="absolute top-7 md:top-12 border border-gray-300 rounded md:rounded-box shadow w-full z-10 p-1 md:p-2 bg-white">
+        <ul className="absolute top-7 md:top-9 border border-gray-300 rounded md:rounded-box shadow w-full z-10 p-1 md:p-2 bg-white">
           {filteredSongs.length === 0 ? (
             <li className="text-center text-xs md:text-sm text-gray-500">
               موردی یافت نشد

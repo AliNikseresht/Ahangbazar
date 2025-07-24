@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import QueryProvider from "@/components/providers/query-provider";
 import Header from "@/components/layout/Header";
+import Sidebar from "@/components/layout/Sidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -34,7 +35,12 @@ export default function RootLayout({
     <html dir="rtl" lang="fa" suppressHydrationWarning>
       <body className={`${vazirmatn.className}`}>
         <Header />
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <main className="p-3.5 flex gap-2">
+            <Sidebar />
+            {children}
+          </main>
+        </QueryProvider>
       </body>
     </html>
   );

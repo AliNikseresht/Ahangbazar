@@ -52,19 +52,18 @@ export default function Navbar() {
           ${isOpen ? "translate-x-0" : "translate-x-full"}
         `}
       >
-        <button
-          onClick={() => setIsOpen(false)}
-          className="absolute top-4 left-4"
-          aria-label="Close Menu"
-        >
-          <X size={24} />
-        </button>
+        <div className="flex items-center p-3 justify-between w-full">
+          <WebsiteLogo />
+          <button onClick={() => setIsOpen(false)} aria-label="Close Menu">
+            <X size={24} />
+          </button>
+        </div>
 
-        <ul className="flex flex-col mt-14">
+        <ul className="flex flex-col">
           {navItems.map(({ label, href }) => (
             <li
               key={href}
-              className="px-6 py-3 hover:bg-gray-200 dark:hover:bg-gray-700 border-b last:border-b-0 cursor-pointer"
+              className="px-3 py-1.5 hover:bg-gray-200 border-b last:border-b-0 border-gray-300 cursor-pointer text-sm"
               onClick={() => setIsOpen(false)}
             >
               <Link href={href}>{label}</Link>

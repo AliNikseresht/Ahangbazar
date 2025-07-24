@@ -2,7 +2,7 @@
 @plugin "daisyui";
 
 body {
-  background: #ffffff;
+  background: #f8f8f8;
   min-height: 100dvh;
   color: #242424;
 }
