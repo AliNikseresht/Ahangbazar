@@ -9,7 +9,7 @@ const WebsiteLogo = () => {
       <Image
         src={logo}
         alt="ahangbazar-logo"
-        className="w-8 lg:w-11 h-auto object-contain"
+        className="w-8 lg:w-10 h-auto object-contain hidden md:flex"
       />
       <h1>آهنگ بازار</h1>
     </Link>

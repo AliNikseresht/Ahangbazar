@@ -44,19 +44,19 @@ export default function InteractiveSearchBox() {
   }, [searchTerm]);
 
   return (
-    <div className="w-44 lg:w-full lg:max-w-lg relative">
+    <div className="w-44 md:w-full md:max-w-xl relative">
       <input
         type="text"
         placeholder="جستجو موسیقی، هنرمند، آلبوم..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full bg-white text-gray-500 border rounded lg:rounded-box p-1 lg:p-2 border-gray-300 outline-none text-xs lg:text-base"
+        className="w-full bg-white text-gray-500 border rounded lg:rounded-box p-1 lg:p-1.5 border-gray-300 outline-none text-xs lg:text-sm"
       />
 
       {searchTerm && (
-        <ul className="absolute top-7 lg:top-12 border border-gray-300 rounded lg:rounded-box shadow w-full z-10 p-1 lg:p-2 bg-white">
+        <ul className="absolute top-7 md:top-12 border border-gray-300 rounded md:rounded-box shadow w-full z-10 p-1 md:p-2 bg-white">
           {filteredSongs.length === 0 ? (
-            <li className="text-center text-xs lg:text-sm text-gray-500">
+            <li className="text-center text-xs md:text-sm text-gray-500">
               موردی یافت نشد
             </li>
           ) : (
@@ -69,8 +69,8 @@ export default function InteractiveSearchBox() {
                     : ""
                 }`}
               >
-                <h3 className="text-xs lg:text-sm">{song.title}</h3>
-                <div className="text-xs lg:text-sm opacity-70">
+                <h3 className="text-xs md:text-sm">{song.title}</h3>
+                <div className="text-xs md:text-sm opacity-70">
                   {song.artist} - {song.album}
                 </div>
               </li>
