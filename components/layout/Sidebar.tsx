@@ -43,7 +43,7 @@ const Sidebar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <>
+    <div>
       <aside className="hidden md:flex w-72 flex-col gap-4">
         <SidebarBox
           basePath="artists"
@@ -102,7 +102,7 @@ const Sidebar = () => {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -13,7 +13,6 @@ type NavItem = {
 const navItems: NavItem[] = [
   { label: "خانه", href: "/" },
   { label: "پرطرفدار", href: "/popular" },
-  { label: "جدیدترین", href: "/new" },
   { label: "هنرمندان", href: "/artists" },
   { label: "ارتباط با ما", href: "/contact" },
 ];

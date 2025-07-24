@@ -1,3 +1,11 @@
+import PopularSongsSection from "@/components/ui/PopularSongsSection";
+import TopBoxSection from "@/components/ui/TopBoxSection";
+
 export default function Home() {
-  return <main>این یک متن تست برای شروع است</main>;
+  return (
+    <main className="w-full flex flex-col gap-3">
+      <TopBoxSection />
+      <PopularSongsSection />
+    </main>
+  );
 }
