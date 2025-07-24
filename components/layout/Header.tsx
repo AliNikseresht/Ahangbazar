@@ -4,7 +4,7 @@ import Navbar from "./header/Navbar";
 
 const Header = () => {
   return (
-    <div className="w-full flex justify-between items-center shadow p-1.5 md:p-3">
+    <div className="w-full flex justify-between items-center shadow p-1.5 md:p-3 fixed top-0 bg-white">
       <div className="order-2 md:order-2 md:block hidden">
         <Navbar />
       </div>

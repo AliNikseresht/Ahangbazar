@@ -20,7 +20,7 @@ const vazirmatn = localFont({
     },
     {
       path: "../fonts/Vazirmatn-Medium.woff2",
-      weight: "400",
+      weight: "500",
       style: "normal",
     },
   ],
@@ -28,18 +28,28 @@ const vazirmatn = localFont({
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html dir="rtl" lang="fa" suppressHydrationWarning>
-      <body className={`${vazirmatn.className}`}>
-        <Header />
+      <body
+        className={`${vazirmatn.className} flex flex-col h-screen overflow-hidden`}
+      >
         <QueryProvider>
-          <main className="p-3.5 flex gap-3">
-            <Sidebar />
-            {children}
-          </main>
+          <Header />
+          <div className="flex flex-1 pt-[70px]">
+            <aside
+              className="fixed top-[70px] bottom-0 right-3 overflow-auto z-20
+              hidden md:flex"
+            >
+              <Sidebar />
+            </aside>
+
+            <main className="flex-1 overflow-y-auto mr-[19.5rem] h-[calc(100vh-70px)]">
+              {children}
+            </main>
+          </div>
         </QueryProvider>
       </body>
     </html>

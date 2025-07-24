@@ -3,17 +3,14 @@
 import { supabase } from "@/libs/supabase/supabaseClient";
 import { useQuery } from "@tanstack/react-query";
 
-export function useSongs(album: string) {
+export function useSongs(album?: string) {
   return useQuery({
     queryKey: ["songs", album],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("songs")
-        .select("*")
-        .eq("album", album)
-        .order("title", { ascending: true });
-
-      if (error) throw new Error(error.message);
+      let query = supabase.from("songs").select("*");
+      if (album) query = query.eq("album", album);
+      const { data, error } = await query;
+      if (error) throw error;
       return data;
     },
   });
