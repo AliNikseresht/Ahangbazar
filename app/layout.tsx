@@ -31,9 +31,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html dir="rtl" lang="fa" data-theme="light" suppressHydrationWarning>
+    <html dir="rtl" lang="fa" suppressHydrationWarning>
       <body className={`${vazirmatn.className}`}>
-        <Header/>
+        <Header />
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
