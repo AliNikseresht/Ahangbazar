@@ -12,9 +12,12 @@ async function listAllFiles(path = ""): Promise<FileItem[]> {
     .from("music-files")
     .list(path, { limit: 1000 })) as {
     data: SupabaseFileItem[] | null;
-    error: any;
+    error: unknown;
   };
-  if (error) throw error;
+  if (error) {
+    if (error instanceof Error) throw error;
+    throw new Error("Unknown storage error");
+  }
 
   let files: FileItem[] = [];
 
@@ -109,13 +112,12 @@ export async function GET() {
       }),
       { headers: { "Content-Type": "application/json" } }
     );
-  } catch (error: any) {
-    return new Response(
-      JSON.stringify({
-        status: "error",
-        message: error.message || "Unknown error",
-      }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+  } catch (error) {
+    let message = "Unknown error";
+    if (error instanceof Error) message = error.message;
+    return new Response(JSON.stringify({ status: "error", message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
