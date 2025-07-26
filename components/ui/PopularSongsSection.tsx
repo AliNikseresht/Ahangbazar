@@ -47,7 +47,7 @@ const SongCard = ({ song, isPlaying, onPlay, onPause }: SongCardProps) => {
         className="w-full h-auto mb-1.5 object-contain rounded-t"
       />
 
-      <h3 className="font-bold text-sm p-2">{song.title}</h3>
+      <h3 className="font-bold text-xs lg:text-sm p-2">{song.title}</h3>
       <div className="flex items-center gap-3 mt-3 justify-between w-full p-2">
         <div className="flex items-center gap-1">
           <a
@@ -69,7 +69,7 @@ const SongCard = ({ song, isPlaying, onPlay, onPause }: SongCardProps) => {
             )}
           </button>
         </div>
-        <p className="text-gray-600 text-sm">{song.album}</p>
+        <p className="text-gray-600 text-xs lg:text-sm">{song.album}</p>
       </div>
     </div>
   );
@@ -121,7 +121,7 @@ const PopularSongsSection = () => {
   }
 
   return (
-    <div className="w-full shadow rounded-xl p-5 flex flex-col gap-4 border border-gray-200">
+    <div className="w-full lg:shadow rounded-xl lg:p-5 flex flex-col gap-4 lg:border border-gray-200">
       <AudioPlayer
         currentSong={currentSong}
         onPause={handlePause}
@@ -135,7 +135,7 @@ const PopularSongsSection = () => {
           مشاهده همه
         </Link>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 lg:gap-4">
         {songs?.map((song) => (
           <SongCard
             key={song.id}

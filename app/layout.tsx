@@ -34,22 +34,14 @@ export default function RootLayout({
   return (
     <html dir="rtl" lang="fa" suppressHydrationWarning>
       <body
-        className={`${vazirmatn.className} flex flex-col h-screen overflow-hidden`}
+        className={`${vazirmatn.className} h-screen grid grid-rows-[55px_1fr] grid-cols-1 lg:grid-cols-[265px_1fr]`}
       >
         <QueryProvider>
           <Header />
-          <div className="flex flex-1 pt-[70px]">
-            <aside
-              className="fixed top-[70px] bottom-0 right-3 overflow-auto z-20
-              hidden md:flex"
-            >
-              <Sidebar />
-            </aside>
-
-            <main className="flex-1 overflow-y-auto mr-[19.5rem] h-[calc(100vh-70px)]">
-              {children}
-            </main>
-          </div>
+          <Sidebar />
+          <main className="row-start-2 col-span-full lg:col-start-2 overflow-y-auto p-4">
+            {children}
+          </main>
         </QueryProvider>
       </body>
     </html>

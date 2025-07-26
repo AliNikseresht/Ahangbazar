@@ -4,7 +4,7 @@ import React from "react";
 
 const TopBoxSection = () => {
   return (
-    <div className="bg-gradient-to-r from-[#40ad6d] to-[#08aadb] w-full shadow h-[180px] rounded-xl p-5 flex flex-col justify-between">
+    <div className="bg-gradient-to-r from-[#40c176] to-[#0187af] w-full shadow h-[180px] rounded-xl p-5 flex flex-col justify-between">
       <div>
         <h2 className="text-xl lg:text-3xl text-white">آهنگ ویژه هفته</h2>
         <p className="text-white text-xs md:text-sm lg:text-base">
@@ -13,7 +13,7 @@ const TopBoxSection = () => {
       </div>
       <Link
         href="/top-songs"
-        className="font-bold text-base lg:text-xl bg-white hover:bg-gradient-to-r from-[#40ad6d0a] to-[#08aadb1a] rounded-md py-1 flex items-center w-32 lg:w-36 justify-center gap-1 hover:text-white duration-300"
+        className="font-bold text-base lg:text-lg bg-white hover:bg-gradient-to-r from-[#40ad6d0a] to-[#08aadb1a] rounded-md py-2 flex items-center w-32 lg:w-36 justify-center gap-1 hover:text-white duration-300"
       >
         <Play size={19} color="#40ad6d" />
         <span className="bg-gradient-to-b from-[#40ad6d] to-[#08aadb] bg-clip-text text-transparent">

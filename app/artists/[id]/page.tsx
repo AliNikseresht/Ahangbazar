@@ -1,17 +1,21 @@
 import { notFound } from "next/navigation";
 import React from "react";
 
+// Update the type to handle async params
 type ArtistsPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 };
 
 const dummyArtists = [
-  { id: 1, name: "محسن یگانه", bio: "بیوگرافی محسن یگانه..." },
-  { id: 2, name: "محسن چاوشی", bio: "بیوگرافی محسن چاوشی..." },
+  { id: "1", name: "محسن یگانه", bio: "بیوگرافی محسن یگانه..." },
+  { id: "2", name: "محسن چاوشی", bio: "بیوگرافی محسن چاوشی..." },
 ];
 
-const ArtistsDetailsPage = ({ params }: ArtistsPageProps) => {
-  const artist = dummyArtists.find((a) => a.id === Number(params.id));
+const ArtistsDetailsPage = async ({ params }: ArtistsPageProps) => {
+  // Await the params to get the resolved params
+  const { id } = await params;
+  
+  const artist = dummyArtists.find((a) => a.id === id);
   if (!artist) return notFound();
 
   return (
