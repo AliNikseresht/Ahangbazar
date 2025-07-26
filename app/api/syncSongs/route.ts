@@ -8,6 +8,8 @@ interface FileItem {
 async function listAllFiles(path = ""): Promise<FileItem[]> {
   type SupabaseFileItem = { name: string; id?: string };
 
+  console.log("Listing files in path:", path);
+
   const { data, error } = (await supabase.storage
     .from("music-files")
     .list(path, { limit: 1000 })) as {
@@ -19,10 +21,13 @@ async function listAllFiles(path = ""): Promise<FileItem[]> {
     throw new Error("Unknown storage error");
   }
 
+  console.log("Items found:", data);
+
   let files: FileItem[] = [];
 
   for (const item of data || []) {
     const isFolder = !("id" in item);
+
     if (isFolder) {
       const nestedFiles = await listAllFiles(path + item.name + "/");
       files = files.concat(nestedFiles);
