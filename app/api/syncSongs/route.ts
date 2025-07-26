@@ -29,9 +29,7 @@ async function syncSongs() {
 
   const existingPaths = new Set(songs.map((s) => s.storage_path));
 
-  const newFiles = files.filter(
-    (file) => !existingPaths.has(`music-files/${file.name}`)
-  );
+  const newFiles = files.filter((file) => !existingPaths.has(file.name));
 
   if (newFiles.length === 0) {
     return "No new files to add";
@@ -39,7 +37,7 @@ async function syncSongs() {
 
   const newRecords: SongRecord[] = newFiles.map((file) => ({
     title: file.name.replace(/\.[^/.]+$/, ""),
-    storage_path: `music-files/${file.name}`,
+    storage_path: file.name,
     genre: null,
     release_date: new Date().toISOString().slice(0, 10),
     artist_id: null,
