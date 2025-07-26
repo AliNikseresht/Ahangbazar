@@ -17,7 +17,8 @@ type Song = {
   cover_image_url?: string;
 };
 
-export function getPublicCoverUrl(path: string) {
+export function getPublicCoverUrl(path?: string) {
+  if (!path) return "/ahangbazar-logo.png";
   const cleanPath = path.replace(/^music-files\//, "");
   const { data } = supabase.storage.from("music-files").getPublicUrl(cleanPath);
   return data?.publicUrl || "/ahangbazar-logo.png";
@@ -40,7 +41,7 @@ const SongCard = ({ song, isPlaying, onPlay, onPause }: SongCardProps) => {
   return (
     <div className="border border-gray-200 rounded-lg flex flex-col items-center text-center shadow-sm hover:shadow-md transition">
       <Image
-        src={getPublicCoverUrl(song.cover_image_url || "")}
+        src={getPublicCoverUrl(song.cover_image_url)}
         alt={song.title}
         width={120}
         height={120}
