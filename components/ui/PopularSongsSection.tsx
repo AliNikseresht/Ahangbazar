@@ -1,12 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Download, Pause, Play } from "lucide-react";
 import { useSongs } from "@/hooks/useSongs";
-import { supabase } from "@/libs/supabase/supabaseClient";
 import AudioPlayer from "./AudioPlayer";
+import { SongCard } from "./SongCard";
 
 type Song = {
   id: string;
@@ -15,65 +13,6 @@ type Song = {
   album: string;
   storage_path: string;
   cover_image_url?: string;
-};
-
-export function getPublicCoverUrl(path?: string) {
-  if (!path) return "/ahangbazar-logo.png";
-  const cleanPath = path.replace(/^music-files\//, "");
-  const { data } = supabase.storage.from("music-files").getPublicUrl(cleanPath);
-  return data?.publicUrl || "/ahangbazar-logo.png";
-}
-
-export function getPublicAudioUrl(path: string) {
-  const cleanPath = path.replace(/^music-files\//, "");
-  const { data } = supabase.storage.from("music-files").getPublicUrl(cleanPath);
-  return data?.publicUrl || "";
-}
-
-interface SongCardProps {
-  song: Song;
-  isPlaying: boolean;
-  onPlay: (song: Song) => void;
-  onPause: () => void;
-}
-
-const SongCard = ({ song, isPlaying, onPlay, onPause }: SongCardProps) => {
-  return (
-    <div className="border border-gray-200 rounded-lg flex flex-col items-center text-center shadow-sm hover:shadow-md transition">
-      <Image
-        src={getPublicCoverUrl(song.cover_image_url)}
-        alt={song.title}
-        width={120}
-        height={120}
-        className="w-full h-auto mb-1.5 object-contain rounded-t"
-      />
-
-      <h3 className="font-bold text-xs lg:text-sm p-2">{song.title}</h3>
-      <div className="flex items-center gap-3 mt-3 justify-between w-full p-2">
-        <div className="flex items-center gap-1">
-          <a
-            href={getPublicAudioUrl(song.storage_path)}
-            download
-            className="p-1 hover:scale-110 transition"
-          >
-            <Download color="#08aadb" />
-          </a>
-
-          <button
-            className="hover:scale-110 transition cursor-pointer"
-            onClick={() => (isPlaying ? onPause() : onPlay(song))}
-          >
-            {isPlaying ? (
-              <Pause size={20} color="#ff3b3b" />
-            ) : (
-              <Play size={20} color="#40ad6d" />
-            )}
-          </button>
-        </div>
-        <p className="text-gray-600 text-xs lg:text-sm">{song.album}</p>
-      </div>
-    </div>
-  );
 };
 
 const PopularSongsSection = () => {
@@ -136,7 +75,7 @@ const PopularSongsSection = () => {
           مشاهده همه
         </Link>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 lg:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 lg:gap-4">
         {songs?.map((song) => (
           <SongCard
             key={song.id}
