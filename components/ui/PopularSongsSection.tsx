@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import React, { useState } from "react";
 import { useSongs } from "@/hooks/useSongs";
 import AudioPlayer from "./AudioPlayer";
@@ -61,31 +60,27 @@ const PopularSongsSection = () => {
   }
 
   return (
-    <div className="w-full lg:shadow rounded-xl lg:p-5 flex flex-col gap-4 lg:border border-gray-200">
+    <div className="w-full flex flex-col gap-1.5 lg:gap-3">
+      <h2 className="text-xl font-semibold">برترین آهنگ ها</h2>
+      <div className="w-full h-[400px] overflow-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-2">
+          {songs?.map((song) => (
+            <SongCard
+              key={song.id}
+              song={song}
+              isPlaying={currentSong?.id === song.id}
+              onPlay={handlePlay}
+              onPause={handlePause}
+            />
+          ))}
+        </div>
+      </div>
       <AudioPlayer
         currentSong={currentSong}
         onPause={handlePause}
         songsList={songsList}
         onNextSong={handleNextSong}
       />
-
-      <div className="w-full flex justify-between items-center">
-        <h2 className="text-xl font-semibold">برترین آهنگ ها</h2>
-        <Link href="/all-tops" className="text-blue-600 hover:underline">
-          مشاهده همه
-        </Link>
-      </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 lg:gap-4">
-        {songs?.map((song) => (
-          <SongCard
-            key={song.id}
-            song={song}
-            isPlaying={currentSong?.id === song.id}
-            onPlay={handlePlay}
-            onPause={handlePause}
-          />
-        ))}
-      </div>
     </div>
   );
 };

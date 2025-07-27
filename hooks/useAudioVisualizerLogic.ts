@@ -8,33 +8,30 @@ export const useAudioVisualizerLogic = (
 ) => {
   const audioCtxRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
-  const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
+
   const animationId = useRef<number>(0);
 
   useEffect(() => {
     if (!wavesurfer.current || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
     if (!ctx) return;
 
     const audio = wavesurfer.current.getMediaElement();
+    audioCtxRef.current = new (window.AudioContext ||
+      (window as typeof window & { webkitAudioContext?: typeof AudioContext })
+        .webkitAudioContext)();
 
-    if (!audioCtxRef.current) {
-      audioCtxRef.current = new (window.AudioContext ||
-        (window as any).webkitAudioContext)();
-    }
+    const source = audioCtxRef.current.createMediaElementSource(audio);
+    analyserRef.current = audioCtxRef.current.createAnalyser();
+    analyserRef.current.fftSize = 256;
 
-    if (!sourceRef.current) {
-      sourceRef.current = audioCtxRef.current.createMediaElementSource(audio);
-      analyserRef.current = audioCtxRef.current.createAnalyser();
-      analyserRef.current.fftSize = 256;
+    source.connect(analyserRef.current);
+    analyserRef.current.connect(audioCtxRef.current.destination);
 
-      sourceRef.current.connect(analyserRef.current);
-      analyserRef.current.connect(audioCtxRef.current.destination);
-    }
+    const bufferLength = analyserRef.current.frequencyBinCount;
 
-    const bufferLength = analyserRef.current!.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
     const resizeCanvas = () => {
@@ -73,24 +70,7 @@ export const useAudioVisualizerLogic = (
     return () => {
       cancelAnimationFrame(animationId.current);
       window.removeEventListener("resize", resizeCanvas);
-      if (sourceRef.current) {
-        try {
-          sourceRef.current.disconnect();
-        } catch {}
-        sourceRef.current = null;
-      }
-      if (analyserRef.current) {
-        try {
-          analyserRef.current.disconnect();
-        } catch {}
-        analyserRef.current = null;
-      }
-      if (audioCtxRef.current) {
-        audioCtxRef.current.close();
-        audioCtxRef.current = null;
-      }
+      audioCtxRef.current?.close();
     };
-  }, []);
-
-  useEffect(() => {}, [currentSong]);
+  }, [currentSong]);
 };

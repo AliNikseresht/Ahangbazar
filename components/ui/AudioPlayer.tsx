@@ -87,7 +87,7 @@ const AudioPlayer = ({
   const toggleLoop = useCallback(() => setIsLoop(!isLoop), [isLoop]);
 
   return (
-    <div className="relative h-60 lg:h-44 w-full px-3 sm:px-6 py-4 rounded-xl shadow-lg backdrop-blur-lg bg-gradient-to-r from-gray-900/80 via-green-900/70 to-gray-900/80 overflow-hidden">
+    <div className="relative h-56 lg:h-36 w-full px-3 sm:px-6 py-4 rounded-xl shadow-lg backdrop-blur-lg bg-gradient-to-r from-gray-900/80 via-green-900/70 to-gray-900/80 overflow-hidden">
       <canvas
         ref={canvasRef}
         className="absolute top-0 left-0 w-full h-full pointer-events-none rounded-xl"
@@ -95,7 +95,7 @@ const AudioPlayer = ({
 
       {currentSong ? (
         <>
-          <p className="mb-3 text-center text-sm sm:text-base text-gray-200 font-semibold relative z-10">
+          <p className="text-center text-sm sm:text-base text-gray-200 font-semibold relative z-10">
             {isLoading ? "در حال بارگذاری..." : currentSong.title}
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full justify-center relative z-10">

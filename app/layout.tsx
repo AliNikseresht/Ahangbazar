@@ -1,14 +1,31 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-
-import "./globals.css";
 import QueryProvider from "@/components/providers/query-provider";
+import localFont from "next/font/local";
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
 
+import "./globals.css";
+
 export const metadata: Metadata = {
-  title: "آهنگ بازار",
-  description: "مرجع دانلود آهنگ های ایران قدیم ",
+  title: "آهنگ بازار - دانلود آهنگ جدید",
+  description: "مرجع دانلود انواع آهنگ‌های جدید و قدیمی با کیفیت بالا.",
+  keywords: "دانلود آهنگ, دانلود آهنگ جدید, آهنگ ایرانی, آهنگ بازار",
+  authors: [{ name: "آهنگ بازار" }],
+  openGraph: {
+    title: "آهنگ بازار",
+    description: "دانلود جدیدترین آهنگ‌ها با کیفیت عالی.",
+    url: "https://ahangbazar.vercel.app/",
+    siteName: "آهنگ بازار",
+    locale: "fa_IR",
+    type: "website",
+  },
+  alternates: {
+    canonical: "https://ahangbazar.vercel.app/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 const vazirmatn = localFont({
