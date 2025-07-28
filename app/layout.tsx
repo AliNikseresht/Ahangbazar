@@ -59,11 +59,25 @@ export default function RootLayout({
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-T9WXMWV5YR');
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-T9WXMWV5YR');
   `}
+        </Script>
+        <Script id="ld-json" type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "آهنگ بازار",
+            url: "https://ahangbazar.vercel.app/",
+            potentialAction: {
+              "@type": "SearchAction",
+              target:
+                "https://ahangbazar.vercel.app/search?q={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          })}
         </Script>
       </head>
       <body
