@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
 
 import "./globals.css";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "آهنگ بازار - دانلود آهنگ جدید",
@@ -50,6 +51,21 @@ export default function RootLayout({
 }) {
   return (
     <html dir="rtl" lang="fa" suppressHydrationWarning>
+      <head>
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=G-T9WXMWV5YR`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX');
+          `}
+        </Script>
+      </head>
       <body
         className={`${vazirmatn.className} h-screen grid grid-rows-[55px_1fr] grid-cols-1 lg:grid-cols-[265px_1fr]`}
       >
