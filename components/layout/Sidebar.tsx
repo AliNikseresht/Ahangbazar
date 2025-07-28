@@ -3,44 +3,38 @@
 import React, { useState } from "react";
 import SidebarBox from "./sidebar/SidebarBox";
 import { Menu, X } from "lucide-react";
-
-type Artists = {
-  id: number;
-  title: string;
-};
-
-type Songs = {
-  id: number;
-  title: string;
-  artist: string;
-};
-
-const dummyArtists: Artists[] = [
-  { id: 1, title: "محسن یگانه" },
-  { id: 2, title: "محسن چاوشی" },
-  { id: 3, title: "سیروان خسروی" },
-  { id: 4, title: "معین زد" },
-  { id: 5, title: "احسان خواجه‌امیری" },
-  { id: 6, title: "احسان خواجه‌امیری" },
-  { id: 7, title: "احسان خواجه‌امیری" },
-  { id: 8, title: "احسان خواجه‌امیری" },
-  { id: 9, title: "احسان خواجه‌امیری" },
-];
-
-const suggestedSongs: Songs[] = [
-  { id: 1, title: "بی‌تو", artist: "محسن یگانه" },
-  { id: 2, title: "چشمای تو", artist: "محسن چاوشی" },
-  { id: 3, title: "عاشق شدم", artist: "مجید یحیایی" },
-  { id: 4, title: "پرواز", artist: "احسان خواجه‌امیری" },
-  { id: 5, title: "عاشق شدم", artist: "مجید یحیایی" },
-  { id: 6, title: "عاشق شدم", artist: "مجید یحیایی" },
-  { id: 7, title: "عاشق شدم", artist: "مجید یحیایی" },
-  { id: 8, title: "عاشق شدم", artist: "مجید یحیایی" },
-  { id: 9, title: "عاشق شدم", artist: "مجید یحیایی" },
-];
+import { useQuery } from "@tanstack/react-query";
+import { fetchArtists } from "@/services/fetchArtists";
+import { Artists } from "@/types/artists";
+import {
+  fetchSuggestedSongs,
+  SuggestedSong,
+} from "@/services/fetchSuggestedSongs";
 
 const Sidebar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const {
+    data: artists,
+    isLoading: artistsLoading,
+    isError: artistsError,
+  } = useQuery<Artists[]>({
+    queryKey: ["artists"],
+    queryFn: fetchArtists,
+  });
+
+  const {
+    data: suggestedSongs,
+    isLoading: songsLoading,
+    isError: songsError,
+  } = useQuery<SuggestedSong[]>({
+    queryKey: ["suggestedSongs"],
+    queryFn: fetchSuggestedSongs,
+  });
+
+  if (artistsLoading || songsLoading) return <div>در حال بارگذاری...</div>;
+  if (artistsError) return <div>خطا در دریافت خواننده‌ها</div>;
+  if (songsError) return <div>خطا در دریافت آهنگ‌های پیشنهادی</div>;
 
   return (
     <>
@@ -48,14 +42,30 @@ const Sidebar = () => {
         <SidebarBox
           basePath="artists"
           title="خواننده‌ها"
-          items={dummyArtists}
+          items={
+            artists?.map((artist) => ({
+              id: artist.id,
+              title: artist.name_fa || artist.name,
+              slug: artist.slug,
+            })) || []
+          }
         />
+
         <SidebarBox
           basePath="songs"
           title="آهنگ‌های پیشنهادی"
-          items={suggestedSongs}
+          items={
+            suggestedSongs && suggestedSongs.length > 0
+              ? suggestedSongs.map((song) => ({
+                  id: song.id,
+                  title: song.title,
+                  subtitle: song.artist,
+                }))
+              : [{ id: 0, title: "آهنگی نیست" }]
+          }
         />
       </aside>
+
       <button
         className="lg:hidden fixed bottom-4 right-4 z-50 bg-gradient-to-r from-[#40ad6d] to-[#08aadb] text-white p-3 rounded-full shadow-lg"
         onClick={() => setDrawerOpen(true)}
@@ -89,16 +99,27 @@ const Sidebar = () => {
           <SidebarBox
             basePath="artists"
             title="خواننده‌ها"
-            items={dummyArtists}
+            items={
+              artists?.map((artist) => ({
+                id: artist.id,
+                title: artist.name_fa || artist.name,
+                slug: artist.slug,
+              })) || []
+            }
           />
+
           <SidebarBox
             basePath="songs"
             title="آهنگ‌های پیشنهادی"
-            items={suggestedSongs.map((song) => ({
-              id: song.id,
-              title: song.title,
-              subtitle: song.artist,
-            }))}
+            items={
+              suggestedSongs && suggestedSongs.length > 0
+                ? suggestedSongs.map((song) => ({
+                    id: song.id,
+                    title: song.title,
+                    subtitle: song.artist,
+                  }))
+                : [{ id: 0, title: "آهنگی نیست" }]
+            }
           />
         </div>
       </div>

@@ -20,7 +20,6 @@ export const SongCard = ({
   setActivePopupId,
 }: SongCardProps) => {
   const showPopup = activePopupId === song.id;
-
   const songUrl = getPublicAudioUrl(song.storage_path);
 
   return (
