@@ -17,6 +17,7 @@ type Song = {
 const PopularSongsSection = () => {
   const { data: songs, isLoading, isError } = useSongs("");
   const [currentSong, setCurrentSong] = useState<Song | null>(null);
+  const [activePopupId, setActivePopupId] = useState<string | null>(null);
 
   const handlePlay = (song: Song) => {
     setCurrentSong(song);
@@ -45,8 +46,8 @@ const PopularSongsSection = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full p-5 text-center text-gray-500">
-        <div className="loading loading-bars"></div>
+      <div className="w-full min-h-screen p-5 flex justify-center items-center text-gray-500">
+        <div className="loading loading-spinner"></div>
       </div>
     );
   }
@@ -54,7 +55,7 @@ const PopularSongsSection = () => {
   if (isError) {
     return (
       <div className="w-full p-5 text-center text-red-500">
-        خطایی در دریافت داده‌ها رخ داده است.
+        خطایی در دریافت داده‌ها رخ داده است.لطفا بعداً تلاش کنید.
       </div>
     );
   }
@@ -70,7 +71,8 @@ const PopularSongsSection = () => {
               song={song}
               isPlaying={currentSong?.id === song.id}
               onPlay={handlePlay}
-              onPause={handlePause}
+              activePopupId={activePopupId}
+              setActivePopupId={setActivePopupId}
             />
           ))}
         </div>

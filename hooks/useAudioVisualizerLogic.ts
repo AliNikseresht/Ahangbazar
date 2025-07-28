@@ -8,30 +8,44 @@ export const useAudioVisualizerLogic = (
 ) => {
   const audioCtxRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
-
+  const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
   const animationId = useRef<number>(0);
 
   useEffect(() => {
     if (!wavesurfer.current || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const audio = wavesurfer.current.getMediaElement();
-    audioCtxRef.current = new (window.AudioContext ||
-      (window as typeof window & { webkitAudioContext?: typeof AudioContext })
-        .webkitAudioContext)();
+    if (animationId.current) {
+      cancelAnimationFrame(animationId.current);
+    }
+    if (analyserRef.current) {
+      analyserRef.current.disconnect();
+    }
+    if (sourceRef.current) {
+      sourceRef.current.disconnect();
+    }
 
-    const source = audioCtxRef.current.createMediaElementSource(audio);
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new (window.AudioContext ||
+        (window as any).webkitAudioContext)();
+    }
+
+    const audio = wavesurfer.current.getMediaElement();
+
+    if (!sourceRef.current) {
+      sourceRef.current = audioCtxRef.current.createMediaElementSource(audio);
+    }
+
     analyserRef.current = audioCtxRef.current.createAnalyser();
     analyserRef.current.fftSize = 256;
 
-    source.connect(analyserRef.current);
+    sourceRef.current.connect(analyserRef.current);
     analyserRef.current.connect(audioCtxRef.current.destination);
 
     const bufferLength = analyserRef.current.frequencyBinCount;
-
     const dataArray = new Uint8Array(bufferLength);
 
     const resizeCanvas = () => {
@@ -39,6 +53,7 @@ export const useAudioVisualizerLogic = (
       canvas.height = canvas.clientHeight * window.devicePixelRatio;
       ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
     };
+
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
@@ -70,7 +85,9 @@ export const useAudioVisualizerLogic = (
     return () => {
       cancelAnimationFrame(animationId.current);
       window.removeEventListener("resize", resizeCanvas);
-      audioCtxRef.current?.close();
+
+      analyserRef.current?.disconnect();
+      sourceRef.current?.disconnect();
     };
   }, [currentSong]);
 };
