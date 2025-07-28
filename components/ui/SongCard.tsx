@@ -1,8 +1,6 @@
 import { Song } from "@/types/song";
 import { getPublicAudioUrl } from "@/utils/getPublicAudioUrl";
-import { getPublicCoverUrl } from "@/utils/getPublicCoverUrl";
 import { Download, Pause, Play } from "lucide-react";
-import Image from "next/image";
 
 interface SongCardProps {
   song: Song;

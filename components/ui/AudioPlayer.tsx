@@ -87,7 +87,7 @@ const AudioPlayer = ({
   const toggleLoop = useCallback(() => setIsLoop(!isLoop), [isLoop]);
 
   return (
-    <div className="relative h-56 lg:h-36 w-full px-3 sm:px-6 py-4 rounded-xl shadow-lg backdrop-blur-lg bg-gradient-to-r from-gray-900/80 via-green-900/70 to-gray-900/80 overflow-hidden">
+    <div className="relative h-56 lg:h-32 w-full px-3 sm:px-6 py-4 rounded-xl shadow-lg backdrop-blur-lg bg-gradient-to-r from-gray-900/80 via-green-900/70 to-gray-900/80 overflow-hidden">
       <canvas
         ref={canvasRef}
         className="absolute top-0 left-0 w-full h-full pointer-events-none rounded-xl"
