@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://ahangbazar.vercel.app
+
+# Sitemaps
+Sitemap: https://ahangbazar.vercel.app/sitemap.xml
