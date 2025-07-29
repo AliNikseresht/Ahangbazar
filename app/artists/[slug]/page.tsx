@@ -19,7 +19,7 @@ export default async function ArtistPage(props: Props) {
     return notFound();
   }
 
-  const { data: songs, error: songsError } = await supabase
+  const { data: songs } = await supabase
     .from("songs")
     .select("*")
     .eq("artist_id", artist.id);

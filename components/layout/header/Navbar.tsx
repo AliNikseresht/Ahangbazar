@@ -36,7 +36,7 @@ export default function Navbar() {
       </ul>
 
       <button
-        className="md:hidden "
+        className="md:hidden"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label="Toggle Menu"
       >
@@ -45,7 +45,7 @@ export default function Navbar() {
 
       <div
         className={`
-          fixed top-0 right-0 h-full w-72 p-5 bg-white rounded-e-2xl shadow-lg z-50
+          fixed top-0 right-0 h-full w-72 p-5 bg-white rounded-e-2xl shadow-lg z-20
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "translate-x-full"}
         `}
@@ -72,7 +72,7 @@ export default function Navbar() {
 
       {isOpen && (
         <div
-          className="fixed inset-0 bg-[#00000038] bg-opacity-30 z-40"
+          className="fixed inset-0 bg-[#00000038] bg-opacity-30 z-10"
           onClick={() => setIsOpen(false)}
         />
       )}

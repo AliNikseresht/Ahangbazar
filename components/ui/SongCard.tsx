@@ -2,7 +2,7 @@
 
 import { Song } from "@/types/song";
 import { getPublicAudioUrl } from "@/utils/getPublicAudioUrl";
-import { Download, Pause, Play, Share2 } from "lucide-react";
+import { Download, Play, Share2 } from "lucide-react";
 import SharePopup from "./dialogs/SharePopup";
 
 interface SongCardProps {
