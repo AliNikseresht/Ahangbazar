@@ -63,8 +63,8 @@ const PopularSongsSection = () => {
   return (
     <div className="w-full flex flex-col gap-1.5 lg:gap-3">
       <h2 className="text-xl font-semibold">برترین آهنگ ها</h2>
-      <div className="w-full h-[420px] overflow-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-2">
+      <div className="w-full overflow-auto mb-40 lg:mb-[8.8em]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 lg:gap-2">
           {songs?.map((song) => (
             <SongCard
               key={song.id}

@@ -86,7 +86,7 @@ export default function RootLayout({
         <QueryProvider>
           <Header />
           <Sidebar />
-          <main className="row-start-2 col-span-full lg:col-start-2 overflow-y-auto p-4 mt-2">
+          <main className="row-start-2 col-span-full lg:col-start-2 overflow-y-auto p-2 lg:p-4 mt-2">
             {children}
           </main>
         </QueryProvider>

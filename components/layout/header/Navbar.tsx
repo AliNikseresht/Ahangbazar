@@ -28,7 +28,7 @@ export default function Navbar() {
         {navItems.map(({ label, href }) => (
           <li
             key={href}
-            className="hover:bg-gray-100 px-3 py-1 rounded-md transition cursor-pointer text-sm"
+            className="hover:bg-gray-100 px-3 py-1 rounded-md transition cursor-pointer text-base"
           >
             <Link href={href}>{label}</Link>
           </li>
@@ -45,15 +45,15 @@ export default function Navbar() {
 
       <div
         className={`
-          fixed top-0 right-0 h-full w-64 bg-white rounded-e-2xl shadow-lg z-50
+          fixed top-0 right-0 h-full w-72 p-5 bg-white rounded-e-2xl shadow-lg z-50
           transform transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "translate-x-full"}
         `}
       >
-        <div className="flex items-center p-3 justify-between w-full">
+        <div className="flex items-center justify-between w-full">
           <WebsiteLogo />
           <button onClick={() => setIsOpen(false)} aria-label="Close Menu">
-            <X size={24} />
+            <X size={28} />
           </button>
         </div>
 
@@ -61,7 +61,7 @@ export default function Navbar() {
           {navItems.map(({ label, href }) => (
             <li
               key={href}
-              className="px-3 py-1.5 hover:bg-gray-200 border-b last:border-b-0 border-gray-300 cursor-pointer text-sm"
+              className="lg:px-3 py-2 hover:bg-gray-200 border-b last:border-b-0 border-gray-300 cursor-pointer text-base"
               onClick={() => setIsOpen(false)}
             >
               <Link href={href}>{label}</Link>

@@ -50,7 +50,7 @@ export default function InteractiveSearchBox() {
         placeholder="جستجو موسیقی، هنرمند، آلبوم..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full bg-transparent text-gray-500 border rounded lg:rounded-box p-1 lg:p-1.5 border-gray-300 outline-none text-xs lg:text-sm"
+        className="w-full bg-transparent text-gray-500 border rounded lg:rounded-box p-1 lg:p-2.5 border-gray-300 outline-none text-xs lg:text-sm"
       />
 
       {searchTerm && (

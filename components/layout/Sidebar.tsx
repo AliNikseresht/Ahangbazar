@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import SidebarBox from "./sidebar/SidebarBox";
-import { Menu, X } from "lucide-react";
+import { ChevronLeft, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchArtists } from "@/services/fetchArtists";
 import { Artists } from "@/types/artists";
@@ -67,11 +67,11 @@ const Sidebar = () => {
       </aside>
 
       <button
-        className="lg:hidden fixed bottom-4 right-4 z-50 bg-gradient-to-r from-[#40ad6d] to-[#08aadb] text-white p-3 rounded-full shadow-lg"
+        className="lg:hidden fixed top-1/2 right-0 transform -translate-x-0 -translate-y-1/2 z-50 border-t-2 border-l-2 border-b-2 border-[#40ad6d] bg-[#242424] text-[#40ad6d] py-6 rounded-e-md shadow-lg"
         onClick={() => setDrawerOpen(true)}
         aria-label="Open Sidebar"
       >
-        <Menu size={24} />
+        <ChevronLeft size={24} />
       </button>
 
       {drawerOpen && (
@@ -82,20 +82,21 @@ const Sidebar = () => {
       )}
 
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-50 ${
-          drawerOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={` fixed top-0 right-0 h-full w-72 p-5 bg-white rounded-e-2xl shadow-lg z-50
+          transform transition-transform duration-300 ease-in-out ${
+            drawerOpen ? "translate-x-0" : "translate-x-full"
+          }`}
       >
         <div className="flex items-center justify-between px-2.5 py-1.5">
-          <span>دسته بندی</span>
+          <p className="text-xl">دسته بندی</p>
           <button
             onClick={() => setDrawerOpen(false)}
             aria-label="Close Sidebar"
           >
-            <X size={24} />
+            <X size={28} />
           </button>
         </div>
-        <div className="py-2 space-y-2">
+        <div className="py-2 space-y-6">
           <SidebarBox
             basePath="artists"
             title="خواننده‌ها"
