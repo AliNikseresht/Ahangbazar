@@ -4,7 +4,8 @@ import { Artists } from "@/types/artists";
 export const fetchArtists = async (): Promise<Artists[]> => {
   const { data, error } = await supabase
     .from("artists")
-    .select("id, name, bio, photo_url, created_at, name_fa, slug");
+    .select("id, name, bio, photo_url, created_at, name_fa, slug")
+    .order("created_at", { ascending: false });
 
   if (error) throw new Error(error.message);
 

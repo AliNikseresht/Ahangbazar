@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import WaveSurfer from "wavesurfer.js";
-import { getPublicAudioUrl } from "@/libs/audioUtils";
+import { getPublicAudioUrl } from "@/utils/audioUtils";
 
 export const useWaveSurferLogic = (
   currentSong: { title: string; storage_path: string } | null,

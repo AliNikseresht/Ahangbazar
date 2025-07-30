@@ -66,7 +66,7 @@ export const useAudioVisualizerLogic = (
       ctx.fillStyle = "rgba(0,0,0,0.3)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const barWidth = (canvas.width / bufferLength) * 0.8;
+      const barWidth = (canvas.width / bufferLength) * 1;
       const totalBarsWidth = bufferLength * (barWidth + 1) - 1;
       let x = (canvas.width - totalBarsWidth) / 1.2;
 

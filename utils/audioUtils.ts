@@ -1,4 +1,4 @@
-import { supabase } from "./supabase/supabaseClient";
+import { supabase } from "../libs/supabase/supabaseClient";
 
 export function getPublicAudioUrl(path: string) {
   const cleanPath = path.replace(/^music-files\//, "");

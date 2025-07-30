@@ -7,8 +7,13 @@ export function useSongs(album?: string) {
   return useQuery({
     queryKey: ["songs", album],
     queryFn: async () => {
-      let query = supabase.from("songs").select("*");
+      let query = supabase
+        .from("songs")
+        .select("*")
+        .order("created_at", { ascending: false });
+
       if (album) query = query.eq("album", album);
+
       const { data, error } = await query;
       if (error) throw error;
       return data;
