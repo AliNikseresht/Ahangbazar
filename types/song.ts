@@ -6,4 +6,5 @@ export type Song = {
   album: string;
   storage_path: string;
   cover_image_url?: string;
+  artist?: string;
 };
