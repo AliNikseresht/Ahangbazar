@@ -1,11 +1,5 @@
 import { supabase } from "@/libs/supabase/supabaseClient";
-
-export type SuggestedSong = {
-  id: string;
-  title: string;
-  artist: string;
-  created_at?: string;
-};
+import { SuggestedSong } from "@/types/suggestedSong";
 
 export const fetchSuggestedSongs = async (): Promise<SuggestedSong[]> => {
   const { data, error } = await supabase

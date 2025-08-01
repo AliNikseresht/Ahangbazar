@@ -26,14 +26,14 @@ export default function SidebarBox({
       <h2 className="text-base font-semibold mb-1 border-b border-gray-100 text-[#242424]">
         {title}
       </h2>
-      <ul className="space-y-2 max-h-52 lg:max-h-48 overflow-auto">
+      <ul className="space-y-2 max-h-52 lg:max-h-[161px] overflow-auto">
         {items.map((item) => (
           <li
             key={item.id}
             className="hover:bg-gray-200 p-1 rounded-md cursor-pointer transition text-sm"
             onClick={onItemClick}
           >
-            <Link href={`/${basePath}/${item.slug}`}>
+            <Link href={`/${basePath}/${item.slug || item.id}`}>
               {item.subtitle ? `${item.subtitle} - ${item.title}` : item.title}
             </Link>
           </li>

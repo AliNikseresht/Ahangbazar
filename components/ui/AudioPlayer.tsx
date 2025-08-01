@@ -76,7 +76,7 @@ const AudioPlayer = ({
   const toggleMute = useCallback(() => {
     if (!wavesurfer.current) return;
     if (isMuted) {
-      wavesurfer.current.setVolume(volume || 0.8);
+      wavesurfer.current.setVolume(volume || 1);
       setIsMuted(false);
     } else {
       wavesurfer.current.setVolume(0);
