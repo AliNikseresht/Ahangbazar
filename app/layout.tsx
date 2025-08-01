@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import QueryProvider from "@/components/providers/query-provider";
 import localFont from "next/font/local";
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
+import { ToastContainer } from "react-toastify";
 
 import "./globals.css";
-import Script from "next/script";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "آهنگ بازار - دانلود آهنگ جدید",
@@ -81,7 +83,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${vazirmatn.className} h-screen grid grid-rows-[55px_1fr] grid-cols-1 lg:grid-cols-[265px_1fr]`}
+        className={`${vazirmatn.className} h-screen grid grid-rows-[55px_1fr] grid-cols-1 lg:grid-cols-[309px_1fr]`}
       >
         <QueryProvider>
           <Header />
@@ -89,6 +91,15 @@ export default function RootLayout({
           <main className="row-start-2 col-span-full lg:col-start-2 overflow-y-auto p-2 lg:p-4 mt-2">
             {children}
           </main>
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            closeOnClick
+            pauseOnHover
+            draggable
+            theme="colored"
+          />
         </QueryProvider>
       </body>
     </html>

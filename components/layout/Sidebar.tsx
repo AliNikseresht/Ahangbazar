@@ -38,7 +38,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="hidden lg:block row-start-2 col-start-1 col-end-2 fixed top-[83px] right-4 bottom-0 min-w-[250px] space-y-4 z-20">
+      <aside className="hidden lg:block row-start-2 col-start-1 col-end-2 fixed top-[83px] right-4 bottom-0 max-w-[300px] space-y-2 z-20">
         <SidebarBox
           basePath="artists"
           title="خواننده‌ها"

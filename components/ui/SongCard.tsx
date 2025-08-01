@@ -4,6 +4,7 @@ import { Song } from "@/types/song";
 import { getPublicAudioUrl } from "@/utils/getPublicAudioUrl";
 import { Download, Play, Share2 } from "lucide-react";
 import SharePopup from "./dialogs/SharePopup";
+import RatingComponent from "./RatingComponent";
 
 interface SongCardProps {
   song: Song;
@@ -23,7 +24,7 @@ export const SongCard = ({
   const songUrl = getPublicAudioUrl(song.storage_path);
 
   return (
-    <div className="relative w-full border border-[#40ad6d] rounded-lg shadow-sm p-2 flex flex-col gap-1">
+    <div className="relative w-full border border-[#40ad6d] bg-white rounded-lg shadow-sm p-2 flex flex-col gap-3">
       {/* Title and Album always on top */}
       <div className="text-left">
         <h3 className="font-bold text-xs lg:text-sm truncate">
@@ -59,6 +60,7 @@ export const SongCard = ({
           <Share2 size={16} />
           اشتراک‌گذاری
         </button>
+        <RatingComponent song={song} />
       </div>
 
       {/* Popup box */}
