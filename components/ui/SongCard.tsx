@@ -25,19 +25,20 @@ export const SongCard = ({
 
   return (
     <div className="relative w-full border border-[#40ad6d] bg-white rounded-lg shadow-sm p-2 flex flex-col gap-3">
-      {/* Title and Album always on top */}
-      <div className="text-right">
-        <h3 className="font-bold text-xs lg:text-sm truncate">
-          {song.artist?.name_fa || "نامشخص"} - {song.persian_title || song.title}
-        </h3>
-        <p className="text-gray-500 text-xs">
-          {song.album ? ` - ${song.album}` : ""}
-        </p>
+      <div className="flex justify-between w-full items-center">
+        {/* Title and Album always on top */}
+        <div className="text-right">
+          <h3 className="font-bold text-xs lg:text-sm truncate">
+            {song.artist?.name_fa || "نامشخص"} -{" "}
+            {song.persian_title || song.title}
+          </h3>
+          <p className="text-gray-500 text-xs">{song.album || ""}</p>
+        </div>
+        <RatingComponent song={song} />
       </div>
 
       {/* Buttons always below title */}
       <div className="flex items-center flex-wrap gap-2 justify-end">
-        <RatingComponent song={song} />
         <div className="flex items-center gap-2">
           <a
             href={songUrl}
@@ -54,15 +55,15 @@ export const SongCard = ({
             <Play size={18} />
             پخش
           </button>
-        </div>
 
-        <button
-          onClick={() => setActivePopupId(showPopup ? null : song.id)}
-          className="bg-[#08aadb] p-1.5 text-white rounded-md transition flex items-center text-xs gap-1 cursor-pointer"
-        >
-          <Share2 size={16} />
-          اشتراک‌گذاری
-        </button>
+          <button
+            onClick={() => setActivePopupId(showPopup ? null : song.id)}
+            className="bg-[#08aadb] p-1.5 text-white rounded-md transition flex items-center text-xs gap-1 cursor-pointer"
+          >
+            <Share2 size={16} />
+            اشتراک‌گذاری
+          </button>
+        </div>
       </div>
 
       {/* Popup box */}
