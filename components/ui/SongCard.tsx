@@ -27,7 +27,7 @@ export const SongCard = ({
     <div className="relative w-full border border-[#40ad6d] bg-white rounded-lg shadow-sm p-2 flex flex-col gap-3">
       <div className="flex justify-between w-full items-center">
         {/* Title and Album always on top */}
-        <div className="text-right">
+        <div className="text-right flex flex-col gap-1">
           <h3 className="font-bold text-xs lg:text-sm truncate">
             {song.artist?.name_fa || "نامشخص"} -{" "}
             {song.persian_title || song.title}
