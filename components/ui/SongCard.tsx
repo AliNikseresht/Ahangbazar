@@ -26,15 +26,18 @@ export const SongCard = ({
   return (
     <div className="relative w-full border border-[#40ad6d] bg-white rounded-lg shadow-sm p-2 flex flex-col gap-3">
       {/* Title and Album always on top */}
-      <div className="text-left">
+      <div className="text-right">
         <h3 className="font-bold text-xs lg:text-sm truncate">
-          {song.title_fa || song.title}
+          {song.artist?.name_fa || "نامشخص"} - {song.persian_title || song.title}
         </h3>
-        <p className="text-gray-500 text-xs">{song.album || ""}</p>
+        <p className="text-gray-500 text-xs">
+          {song.album ? ` - ${song.album}` : ""}
+        </p>
       </div>
 
       {/* Buttons always below title */}
-      <div className="flex items-center flex-wrap gap-2">
+      <div className="flex items-center flex-wrap gap-2 justify-end">
+        <RatingComponent song={song} />
         <div className="flex items-center gap-2">
           <a
             href={songUrl}
@@ -60,7 +63,6 @@ export const SongCard = ({
           <Share2 size={16} />
           اشتراک‌گذاری
         </button>
-        <RatingComponent song={song} />
       </div>
 
       {/* Popup box */}
