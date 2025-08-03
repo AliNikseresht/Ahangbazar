@@ -56,7 +56,7 @@ const Sidebar = () => {
             suggestedSongs && suggestedSongs.length > 0
               ? suggestedSongs.map((song) => ({
                   id: song.id,
-                  title: song.title,
+                  title: song.title_fa,
                   subtitle: song.artist,
                 }))
               : [{ id: 0, title: "آهنگی نیست" }]
