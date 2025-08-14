@@ -20,7 +20,7 @@ export function useRecentTracks() {
         .from("songs")
         .select(`id, title, plays, duration, cover, file_path, artists(name)`)
         .order("created_at", { ascending: false })
-        .limit(16);
+        .limit(100);
 
       return (
         data?.map((track: SupabaseTrack) => {

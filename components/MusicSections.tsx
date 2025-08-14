@@ -53,17 +53,16 @@ export function MusicSections({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {trendingTracks.map((track) => (
-<MusicCard
-  key={track.id}
-  track={track}
-  onPlay={(t) => {
-    console.log("Playing track:", t.title, t.audio);
-    onPlayTrack(t);
-  }}
-  onDownload={onDownloadTrack}
-  variant="grid"
-/>
-
+            <MusicCard
+              key={track.id}
+              track={track}
+              onPlay={(t) => {
+                console.log("Playing track:", t.title, t.audio);
+                onPlayTrack(t);
+              }}
+              onDownload={onDownloadTrack}
+              variant="grid"
+            />
           ))}
         </div>
       </section>
