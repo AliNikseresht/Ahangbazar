@@ -149,7 +149,7 @@ export function MusicSections({
           </div>
 
           <TabsContent value="recent" className="space-y-4">
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden">
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden overflow-y-auto max-h-[450px]">
               {recentTracks.map((track, index) => (
                 <div key={track.id}>
                   <MusicCard
