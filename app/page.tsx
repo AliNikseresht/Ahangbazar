@@ -5,47 +5,60 @@ import { Header } from "@/components/layout/Header";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import { MusicSections } from "@/components/MusicSections";
 import { Toaster } from "@/components/ui/sonner";
-import React, { useState } from "react";
+import { useRecentTracks } from "@/hooks/useRecentTracks";
+import { useTrendingTracks } from "@/hooks/useTrendingTracks";
+import { Track } from "@/types/tracksType";
+import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-
-interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  duration: string;
-  cover: string;
-  plays?: number;
-  isPlaying?: boolean;
-}
 
 export default function App() {
   const [currentTrack, setCurrentTrack] = useState<Track | undefined>(
     undefined
   );
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [trackList, setTrackList] = useState<Track[]>([]);
+
+  const { data: trendingTracks = [] } = useTrendingTracks(currentTrack);
+  const { data: recentTracks = [] } = useRecentTracks();
 
   const handlePlayTrack = (track: Track) => {
-    if (currentTrack?.id === track.id) {
-      setIsPlaying(!isPlaying);
-    } else {
-      setCurrentTrack(track);
-      setIsPlaying(true);
-    }
-    toast.success(`در حال پخش: ${track.title}`, {
-      description: track.artist,
-    });
+    const index = trackList.findIndex((t) => t.id === track.id);
+    if (index === -1) return;
+    setCurrentIndex(index);
+    setCurrentTrack(trackList[index]);
+    setIsPlaying(true);
   };
 
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
 
-  const handleNext = () => {
-    toast.info("آهنگ بعدی");
+  const handleNext = (isShuffle = false) => {
+    if (!trackList.length) return;
+const nextIndex = isShuffle
+  ? Math.floor(Math.random() * trackList.length)
+  : (currentIndex + 1) % trackList.length;
+
+    setCurrentIndex(nextIndex);
+    setCurrentTrack(trackList[nextIndex]);
+    setIsPlaying(true);
   };
 
   const handlePrevious = () => {
-    toast.info("آهنگ قبلی");
+    if (!trackList.length) return;
+    const prevIndex = (currentIndex - 1 + trackList.length) % trackList.length;
+    setCurrentIndex(prevIndex);
+    setCurrentTrack(trackList[prevIndex]);
+    setIsPlaying(true);
+  };
+
+  const handleDownload = (track: Track) => {
+    if (!track.audio) return;
+    const link = document.createElement("a");
+    link.href = track.audio;
+    link.download = track.title + ".mp3";
+    link.click();
   };
 
   const handleSearch = (query: string) => {
@@ -58,9 +71,16 @@ export default function App() {
     toast.info("صفحه آپلود موزیک به زودی...");
   };
 
-  const handleDownload = (track: Track) => {
-    toast.success(`در حال دانلود: ${track.title}`);
-  };
+useEffect(() => {
+  const newList = [...recentTracks, ...trendingTracks];
+  const isEqual =
+    newList.length === trackList.length &&
+    newList.every((t, i) => t.id === trackList[i].id);
+
+  if (!isEqual) {
+    setTrackList(newList);
+  }
+}, [recentTracks, trendingTracks, trackList]);
 
   return (
     <div
@@ -89,10 +109,9 @@ export default function App() {
         currentTrack={currentTrack}
         isPlaying={isPlaying}
         onPlayPause={handlePlayPause}
-        onNext={handleNext}
+        onNext={() => handleNext(false)}
         onPrevious={handlePrevious}
       />
-
       <Toaster position="top-center" richColors />
 
       <style jsx>{`

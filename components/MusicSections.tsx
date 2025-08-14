@@ -1,19 +1,15 @@
-import React from 'react';
-import { ChevronLeft, TrendingUp, Clock, Music, Flame, Zap, Star, Radio, Disc3 } from 'lucide-react';
-import { Button } from './ui/button';
-import { MusicCard } from './MusicCard';
-import { Card } from './ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
+"use client";
 
-interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  duration: string;
-  cover: string;
-  plays?: number;
-  isPlaying?: boolean;
-}
+import React from "react";
+import { MusicCard } from "./MusicCard";
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { ChevronLeft, Clock, TrendingUp, Flame, Music } from "lucide-react";
+import { useTrendingTracks } from "@/hooks/useTrendingTracks";
+import { useRecentTracks } from "@/hooks/useRecentTracks";
+import { useCategories } from "@/hooks/useCategories";
+import { Track } from "@/types/tracksType";
 
 interface MusicSectionsProps {
   onPlayTrack: (track: Track) => void;
@@ -21,133 +17,14 @@ interface MusicSectionsProps {
   currentTrack?: Track;
 }
 
-export function MusicSections({ onPlayTrack, onDownloadTrack, currentTrack }: MusicSectionsProps) {
-  // Mock data for different sections
-  const trendingTracks: Track[] = [
-    {
-      id: '1',
-      title: 'احساس آزادی',
-      artist: 'آرمین ملودی',
-      duration: '3:45',
-      cover: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop',
-      plays: 1250000,
-      isPlaying: currentTrack?.id === '1'
-    },
-    {
-      id: '2',
-      title: 'شب طوفانی',
-      artist: 'سارا ریتم',
-      duration: '4:12',
-      cover: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=400&fit=crop',
-      plays: 980000,
-      isPlaying: currentTrack?.id === '2'
-    },
-    {
-      id: '3',
-      title: 'رقص نور',
-      artist: 'گروه الکترو',
-      duration: '3:28',
-      cover: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=400&h=400&fit=crop',
-      plays: 1560000,
-      isPlaying: currentTrack?.id === '3'
-    },
-    {
-      id: '4',
-      title: 'صدای سکوت',
-      artist: 'رضا آکوستیک',
-      duration: '5:01',
-      cover: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop',
-      plays: 870000,
-      isPlaying: currentTrack?.id === '4'
-    },
-    {
-      id: '5',
-      title: 'پرواز درونی',
-      artist: 'لیلا فلوت',
-      duration: '3:33',
-      cover: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop&flip=h',
-      plays: 2010000,
-      isPlaying: currentTrack?.id === '5'
-    }
-  ];
-
-  const recentTracks: Track[] = [
-    {
-      id: '6',
-      title: 'نسیم صبح',
-      artist: 'امیر پیانو',
-      duration: '3:22',
-      cover: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop&sat=2',
-      plays: 150000
-    },
-    {
-      id: '7',
-      title: 'ستاره‌های شب',
-      artist: 'نازی کلاسیک',
-      duration: '4:05',
-      cover: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=400&fit=crop&sat=2',
-      plays: 85000
-    },
-    {
-      id: '8',
-      title: 'موج آرامش',
-      artist: 'گروه طبیعت',
-      duration: '6:18',
-      cover: 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=400&h=400&fit=crop&sat=2',
-      plays: 92000
-    }
-  ];
-
-  const categories = [
-    { 
-      id: 'electronic', 
-      name: 'الکترونیک', 
-      icon: Zap, 
-      color: 'from-cyan-500 to-blue-600',
-      tracks: 1240,
-      description: 'موزیک‌های دیجیتال و ترنس'
-    },
-    { 
-      id: 'pop', 
-      name: 'پاپ', 
-      icon: Star, 
-      color: 'from-pink-500 to-rose-600',
-      tracks: 3420,
-      description: 'محبوب‌ترین آهنگ‌های روز'
-    },
-    { 
-      id: 'rock', 
-      name: 'راک', 
-      icon: Flame, 
-      color: 'from-red-500 to-orange-600',
-      tracks: 890,
-      description: 'قدرت و انرژی خالص'
-    },
-    { 
-      id: 'classical', 
-      name: 'کلاسیک', 
-      icon: Music, 
-      color: 'from-purple-500 to-indigo-600',
-      tracks: 567,
-      description: 'شاهکارهای جاودان'
-    },
-    { 
-      id: 'jazz', 
-      name: 'جز', 
-      icon: Radio, 
-      color: 'from-yellow-500 to-amber-600',
-      tracks: 234,
-      description: 'ریتم‌های آزاد و خلاقانه'
-    },
-    { 
-      id: 'ambient', 
-      name: 'محیطی', 
-      icon: Disc3, 
-      color: 'from-green-500 to-emerald-600',
-      tracks: 445,
-      description: 'آرامش و مدیتیشن'
-    }
-  ];
+export function MusicSections({
+  onPlayTrack,
+  onDownloadTrack,
+  currentTrack,
+}: MusicSectionsProps) {
+  const { data: trendingTracks = [] } = useTrendingTracks(currentTrack);
+  const { data: recentTracks = [] } = useRecentTracks();
+  const { data: categories = [] } = useCategories();
 
   return (
     <div className="container mx-auto px-6 py-16 space-y-20">
@@ -165,24 +42,28 @@ export function MusicSections({ onPlayTrack, onDownloadTrack, currentTrack }: Mu
               </div>
             </div>
           </div>
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="ghost"
             className="text-purple-400 hover:text-white hover:bg-white/10 rounded-xl group transition-all duration-300"
           >
             مشاهده همه
             <ChevronLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
           </Button>
         </div>
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {trendingTracks.map((track) => (
-            <MusicCard
-              key={track.id}
-              track={track}
-              onPlay={onPlayTrack}
-              onDownload={onDownloadTrack}
-              variant="grid"
-            />
+<MusicCard
+  key={track.id}
+  track={track}
+  onPlay={(t) => {
+    console.log("Playing track:", t.title, t.audio);
+    onPlayTrack(t);
+  }}
+  onDownload={onDownloadTrack}
+  variant="grid"
+/>
+
           ))}
         </div>
       </section>
@@ -200,7 +81,7 @@ export function MusicSections({ onPlayTrack, onDownloadTrack, currentTrack }: Mu
             </div>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category) => {
             const IconComponent = category.icon;
@@ -211,23 +92,33 @@ export function MusicSections({ onPlayTrack, onDownloadTrack, currentTrack }: Mu
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className={`p-4 bg-gradient-to-r ${category.color} rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300`}>
+                    <div
+                      className={`p-4 bg-gradient-to-r ${category.color} rounded-2xl shadow-xl group-hover:scale-110 transition-transform duration-300`}
+                    >
                       <IconComponent className="w-8 h-8 text-white" />
                     </div>
                     <div className="text-right">
-                      <div className="text-2xl font-bold text-white">{category.tracks}</div>
+                      <div className="text-2xl font-bold text-white">
+                        {category.tracks}
+                      </div>
                       <div className="text-sm text-gray-400">آهنگ</div>
                     </div>
                   </div>
-                  
+
                   <div>
-                    <h3 className="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors duration-300">{category.name}</h3>
-                    <p className="text-gray-400 text-sm mt-1 group-hover:text-gray-300 transition-colors duration-300">{category.description}</p>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-purple-300 transition-colors duration-300">
+                      {category.name}
+                    </h3>
+                    <p className="text-gray-400 text-sm mt-1 group-hover:text-gray-300 transition-colors duration-300">
+                      {category.description}
+                    </p>
                   </div>
 
                   {/* Progress indicator */}
                   <div className="w-full h-1 bg-gray-700 rounded-full overflow-hidden">
-                    <div className={`h-full bg-gradient-to-r ${category.color} rounded-full w-0 group-hover:w-full transition-all duration-1000 delay-200`}></div>
+                    <div
+                      className={`h-full bg-gradient-to-r ${category.color} rounded-full w-0 group-hover:w-full transition-all duration-1000 delay-200`}
+                    ></div>
                   </div>
                 </div>
               </Card>
@@ -236,20 +127,20 @@ export function MusicSections({ onPlayTrack, onDownloadTrack, currentTrack }: Mu
         </div>
       </section>
 
-      {/* Recent and Popular Tabs */}
+      {/* Recent & Popular Tabs */}
       <section className="space-y-8">
         <Tabs defaultValue="recent" className="w-full">
           <div className="flex items-center justify-between mb-8">
             <TabsList className="grid grid-cols-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-2">
-              <TabsTrigger 
-                value="recent" 
+              <TabsTrigger
+                value="recent"
                 className="flex items-center space-x-3 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white text-gray-400 px-6 py-3 transition-all duration-300"
               >
                 <Clock className="w-5 h-5" />
                 <span>تازه‌ها</span>
               </TabsTrigger>
-              <TabsTrigger 
-                value="popular" 
+              <TabsTrigger
+                value="popular"
                 className="flex items-center space-x-3 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white text-gray-400 px-6 py-3 transition-all duration-300"
               >
                 <TrendingUp className="w-5 h-5" />
@@ -257,7 +148,7 @@ export function MusicSections({ onPlayTrack, onDownloadTrack, currentTrack }: Mu
               </TabsTrigger>
             </TabsList>
           </div>
-          
+
           <TabsContent value="recent" className="space-y-4">
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden">
               {recentTracks.map((track, index) => (
@@ -275,7 +166,7 @@ export function MusicSections({ onPlayTrack, onDownloadTrack, currentTrack }: Mu
               ))}
             </div>
           </TabsContent>
-          
+
           <TabsContent value="popular" className="space-y-4">
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden">
               {trendingTracks.slice(0, 3).map((track, index) => (

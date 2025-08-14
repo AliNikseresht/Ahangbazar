@@ -17,16 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
-
-interface Track {
-  id: string;
-  title: string;
-  artist: string;
-  duration: string;
-  cover: string;
-  plays?: number;
-  isPlaying?: boolean;
-}
+import { Track } from "@/types/tracksType";
 
 interface MusicCardProps {
   track: Track;
