@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, TrendingUp, Clock, Heart, Music, Flame, Zap, Star, Radio, Disc3 } from 'lucide-react';
+import React from 'react';
+import { ChevronLeft, TrendingUp, Clock, Music, Flame, Zap, Star, Radio, Disc3 } from 'lucide-react';
 import { Button } from './ui/button';
 import { MusicCard } from './MusicCard';
 import { Card } from './ui/card';

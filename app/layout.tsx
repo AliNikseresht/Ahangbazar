@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
   title: "آهنگ بازار - دانلود آهنگ جدید",
@@ -79,14 +80,16 @@ export default function RootLayout({
           })}
         </Script>
       </head>
-      <body
-        className={`${vazirmatn.className}`}
-      >
-        <QueryProvider>
-          <main>
-            {children}
-          </main>
-        </QueryProvider>
+      <body className={`${vazirmatn.className}`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={true}
+        >
+          <QueryProvider>
+            <main>{children}</main>
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
