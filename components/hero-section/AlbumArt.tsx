@@ -1,6 +1,7 @@
 import { Play } from "lucide-react";
 import { Button } from "../ui/button";
 import { FeaturedTrack } from "@/types/heroSectionType";
+import appLogo from "@/public/ahangbazar-logo.png";
 
 interface AlbumArtProps {
   track: FeaturedTrack;
@@ -17,9 +18,14 @@ export function AlbumArt({ track, onPlay }: AlbumArtProps) {
           <div className="absolute inset-8 rounded-full border border-gray-700 opacity-30" />
           <div className="absolute inset-12 rounded-full overflow-hidden shadow-xl">
             <img
-              src={track.cover}
+              src={
+                track.cover && track.cover.trim() ? track.cover : appLogo.src
+              }
               alt={track.title}
-              className="w-full h-full object-cover"
+              onError={(e) => {
+                e.currentTarget.src = appLogo.src;
+              }}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
           </div>

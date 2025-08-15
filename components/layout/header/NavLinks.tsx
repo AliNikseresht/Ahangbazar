@@ -2,7 +2,6 @@ import Link from "next/link";
 
 const links = [
   { label: "خانه", href: "#", active: true },
-  { label: "کشف", href: "#" },
   { label: "پلی‌لیست", href: "#" },
   { label: "هنرمندان", href: "#" },
 ];

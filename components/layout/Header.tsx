@@ -22,7 +22,7 @@ export function Header({ onSearch, onUpload }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/5 border-b border-white/10 shadow-2xl">
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-2 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Logo />

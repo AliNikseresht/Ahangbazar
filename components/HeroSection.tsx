@@ -83,7 +83,7 @@ export function HeroSection({ onPlay }: HeroSectionProps) {
           <div className="space-y-6 lg:space-y-8">
             <HeroBadges track={currentTrack} />
             <div className="space-y-2 lg:space-y-4">
-              <h1 className="text-xl md:text-xl lg:text-6xl font-black leading-tight">
+              <h1 className="text-xl md:text-xl lg:text-5xl font-black leading-tight">
                 <span className="bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent">
                   {currentTrack.title}
                 </span>

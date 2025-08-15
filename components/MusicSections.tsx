@@ -133,14 +133,14 @@ export function MusicSections({
             <TabsList className="grid grid-cols-2 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-2">
               <TabsTrigger
                 value="recent"
-                className="flex items-center space-x-3 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white text-gray-400 px-6 py-3 transition-all duration-300"
+                className="cursor-pointer flex items-center space-x-3 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white text-gray-400 px-6 py-3 transition-all duration-300"
               >
                 <Clock className="w-5 h-5" />
                 <span>تازه‌ها</span>
               </TabsTrigger>
               <TabsTrigger
                 value="popular"
-                className="flex items-center space-x-3 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white text-gray-400 px-6 py-3 transition-all duration-300"
+                className="cursor-pointer flex items-center space-x-3 rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white text-gray-400 px-6 py-3 transition-all duration-300"
               >
                 <TrendingUp className="w-5 h-5" />
                 <span>محبوب‌ترین‌ها</span>
@@ -149,7 +149,7 @@ export function MusicSections({
           </div>
 
           <TabsContent value="recent" className="space-y-4">
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden overflow-y-auto max-h-[450px]">
+            <div className="bg-white/5 backdrop-blur-xl gap-3 p-3 flex flex-col border border-white/10 rounded-3xl overflow-hidden overflow-y-auto max-h-[450px]">
               {recentTracks.map((track, index) => (
                 <div key={track.id}>
                   <MusicCard
@@ -167,7 +167,7 @@ export function MusicSections({
           </TabsContent>
 
           <TabsContent value="popular" className="space-y-4">
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden">
+            <div className="bg-white/5 backdrop-blur-xl gap-3 p-3 flex flex-col border border-white/10 rounded-3xl overflow-hidden">
               {trendingTracks.slice(0, 3).map((track, index) => (
                 <div key={track.id}>
                   <MusicCard

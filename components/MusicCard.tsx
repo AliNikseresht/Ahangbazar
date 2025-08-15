@@ -18,6 +18,7 @@ import {
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Track } from "@/types/tracksType";
+import appLogo from "@/public/ahangbazar-logo.png";
 
 interface MusicCardProps {
   track: Track;
@@ -37,10 +38,14 @@ export function MusicCard({
       <div className="flex items-center p-4 rounded-2xl hover:bg-white/5 backdrop-blur-sm transition-all duration-300 group border border-white/5 hover:border-white/10">
         <div className="relative w-16 h-16 rounded-2xl overflow-hidden mr-4 group">
           <img
-            src={track.cover}
+            src={track.cover && track.cover.trim() ? track.cover : appLogo.src}
             alt={track.title}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            onError={(e) => {
+              e.currentTarget.src = appLogo.src;
+            }}
+            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
           />
+
           <div className="absolute inset-0 bg-gradient-to-br from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
             <Button
               variant="ghost"
@@ -62,7 +67,7 @@ export function MusicCard({
           <p className="text-gray-400 truncate">{track.artist}</p>
         </div>
 
-        <div className="flex items-center space-x-6 text-gray-400 mr-6">
+        <div className="flex items-center gap-2 text-gray-400 mr-6">
           {track.plays && (
             <div className="flex items-center space-x-1">
               <Eye className="w-4 h-4" />
@@ -70,9 +75,10 @@ export function MusicCard({
                 {(track.plays / 1000).toFixed(0)}K
               </span>
             </div>
-          )}
+          )}{" "}
+          -
           <div className="flex items-center space-x-1">
-            <Clock className="w-4 h-4" />
+            <Clock className="w-4 h-4 mb-1" />
             <span className="text-sm">{track.duration}</span>
           </div>
         </div>

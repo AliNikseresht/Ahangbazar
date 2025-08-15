@@ -15,6 +15,7 @@ import {
 import { Button } from "./ui/button";
 import { Slider } from "./ui/slider";
 import { Track } from "@/types/tracksType";
+import appLogo from "@/public/ahangbazar-logo.png";
 
 interface MusicPlayerProps {
   currentTrack?: Track;
@@ -137,8 +138,15 @@ export function MusicPlayer({
                 onClick={() => setShowFullPlayer(true)}
               >
                 <img
-                  src={currentTrack.cover}
+                  src={
+                    currentTrack.cover && currentTrack.cover.trim()
+                      ? currentTrack.cover
+                      : appLogo.src
+                  }
                   alt={currentTrack.title}
+                  onError={(e) => {
+                    e.currentTarget.src = appLogo.src;
+                  }}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -150,6 +158,7 @@ export function MusicPlayer({
                 </h4>
                 <p className="text-gray-400 truncate">{currentTrack.artist}</p>
               </div>
+              {/* share - like - download button */}
               <div className="flex items-center space-x-2">
                 <Button
                   variant="ghost"
@@ -198,10 +207,10 @@ export function MusicPlayer({
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={onPrevious}
+                  onClick={onNext}
                   className="text-gray-400 hover:text-black rounded-full transition-all duration-300 hover:scale-110"
                 >
-                  <SkipBack className="w-6 h-6" />
+                  <SkipForward className="w-6 h-6" />
                 </Button>
                 <Button
                   onClick={onPlayPause}
@@ -213,13 +222,14 @@ export function MusicPlayer({
                     <Play className="w-7 h-7 text-white ml-0.5" />
                   )}
                 </Button>
+
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={onNext}
+                  onClick={onPrevious}
                   className="text-gray-400 hover:text-black rounded-full transition-all duration-300 hover:scale-110"
                 >
-                  <SkipForward className="w-6 h-6" />
+                  <SkipBack className="w-6 h-6" />
                 </Button>
                 <Button
                   variant="ghost"
@@ -310,8 +320,15 @@ export function MusicPlayer({
               <div className="absolute -inset-8 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-full blur-3xl opacity-50 animate-pulse" />
               <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl">
                 <img
-                  src={currentTrack.cover}
+                  src={
+                    currentTrack.cover && currentTrack.cover.trim()
+                      ? currentTrack.cover
+                      : appLogo.src
+                  }
                   alt={currentTrack.title}
+                  onError={(e) => {
+                    e.currentTarget.src = appLogo.src;
+                  }}
                   className="w-full h-full object-cover"
                 />
               </div>
