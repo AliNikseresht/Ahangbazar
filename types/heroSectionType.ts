@@ -8,6 +8,7 @@ export interface FeaturedTrack {
   rating: number;
   duration: string;
   audio?: string;
+  favorites: number;
 }
 
 export interface HeroSectionProps {

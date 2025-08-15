@@ -19,7 +19,7 @@ export default function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [trackList, setTrackList] = useState<Track[]>([]);
 
-  const { data: trendingTracks = [] } = useTrendingTracks(currentTrack);
+  const { data: trendingTracks = [] } = useTrendingTracks(10);
   const { data: recentTracks = [] } = useRecentTracks();
 
   const handlePlayTrack = (track: Track) => {
@@ -36,9 +36,9 @@ export default function App() {
 
   const handleNext = (isShuffle = false) => {
     if (!trackList.length) return;
-const nextIndex = isShuffle
-  ? Math.floor(Math.random() * trackList.length)
-  : (currentIndex + 1) % trackList.length;
+    const nextIndex = isShuffle
+      ? Math.floor(Math.random() * trackList.length)
+      : (currentIndex + 1) % trackList.length;
 
     setCurrentIndex(nextIndex);
     setCurrentTrack(trackList[nextIndex]);
@@ -53,12 +53,26 @@ const nextIndex = isShuffle
     setIsPlaying(true);
   };
 
-  const handleDownload = (track: Track) => {
+  const handleDownload = async (track: Track) => {
     if (!track.audio) return;
-    const link = document.createElement("a");
-    link.href = track.audio;
-    link.download = track.title + ".mp3";
-    link.click();
+
+    try {
+      const response = await fetch(track.audio);
+      if (!response.ok) throw new Error("Failed to download");
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = track.title + ".mp3";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error(err);
+      toast("خطا در دانلود فایل");
+    }
   };
 
   const handleSearch = (query: string) => {
@@ -71,16 +85,16 @@ const nextIndex = isShuffle
     toast.info("صفحه آپلود موزیک به زودی...");
   };
 
-useEffect(() => {
-  const newList = [...recentTracks, ...trendingTracks];
-  const isEqual =
-    newList.length === trackList.length &&
-    newList.every((t, i) => t.id === trackList[i].id);
+  useEffect(() => {
+    const newList = [...recentTracks, ...trendingTracks];
+    const isEqual =
+      newList.length === trackList.length &&
+      newList.every((t, i) => t.id === trackList[i].id);
 
-  if (!isEqual) {
-    setTrackList(newList);
-  }
-}, [recentTracks, trendingTracks, trackList]);
+    if (!isEqual) {
+      setTrackList(newList);
+    }
+  }, [recentTracks, trendingTracks, trackList]);
 
   return (
     <div

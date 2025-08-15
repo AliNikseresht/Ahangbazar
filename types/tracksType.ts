@@ -7,4 +7,5 @@ export interface Track {
   plays?: number;
   isPlaying?: boolean;
   audio?: string;
+  favorites: number;
 }

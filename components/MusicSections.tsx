@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { MusicCard } from "./MusicCard";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
@@ -20,16 +20,31 @@ interface MusicSectionsProps {
 export function MusicSections({
   onPlayTrack,
   onDownloadTrack,
-  currentTrack,
 }: MusicSectionsProps) {
-  const { data: trendingTracks = [] } = useTrendingTracks(currentTrack);
+  const [visibleCount, setVisibleCount] = React.useState(10);
+  const { data: trendingTracks = [] } = useTrendingTracks(visibleCount);
   const { data: recentTracks = [] } = useRecentTracks();
   const { data: categories = [] } = useCategories();
+  const trendingSectionRef = useRef<HTMLDivElement>(null);
+
+  const [shouldScroll, setShouldScroll] = React.useState(false);
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 5);
+    setShouldScroll(true);
+  };
+
+  React.useEffect(() => {
+    if (shouldScroll) {
+      trendingSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+      setShouldScroll(false);
+    }
+  }, [trendingTracks, shouldScroll]);
 
   return (
     <div className="container mx-auto px-6 py-16 space-y-20">
       {/* Trending Section */}
-      <section className="space-y-8">
+      <section className="space-y-8" ref={trendingSectionRef}>
         <div className="flex items-center justify-between">
           <div className="space-y-2">
             <div className="flex items-center space-x-4">
@@ -65,6 +80,11 @@ export function MusicSections({
             />
           ))}
         </div>
+        {trendingTracks.length >= visibleCount && (
+          <div className="flex justify-center mt-6">
+            <Button onClick={handleLoadMore}>نمایش بیشتر</Button>
+          </div>
+        )}
       </section>
 
       {/* Categories Section */}

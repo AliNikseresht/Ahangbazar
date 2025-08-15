@@ -18,6 +18,7 @@ export function HeroSection({ onPlay }: HeroSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTrack, setCurrentTrack] = useState<FeaturedTrack | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [autoSlide, setAutoSlide] = useState(true);
 
   const { data } = useTrendingTracks();
   const tracks = data as Track[] | undefined;
@@ -36,19 +37,26 @@ export function HeroSection({ onPlay }: HeroSectionProps) {
   }, [currentIndex, tracks]);
 
   useEffect(() => {
-    if (!tracks || tracks.length === 0) return;
+    if (!tracks || tracks.length === 0 || !autoSlide) return;
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % tracks.length);
-    }, 8000);
-    return () => clearInterval(interval);
-  }, [tracks]);
+    }, 6000);
 
-  const handlePlay = useCallback(() => {
-    setIsPlaying(true);
-    if (onPlay && currentTrack) {
-      onPlay(currentTrack);
-    }
-  }, [currentTrack, onPlay]);
+    return () => clearInterval(interval);
+  }, [tracks, autoSlide]);
+
+  const handlePlay = useCallback(
+    (track?: FeaturedTrack) => {
+      setIsPlaying(true);
+      setAutoSlide(false);
+      if (track) setCurrentTrack(track);
+      if (onPlay && track) {
+        onPlay(track);
+      }
+    },
+    [onPlay]
+  );
 
   const handlePlayPause = useCallback(() => {
     setIsPlaying((prev) => !prev);
@@ -96,9 +104,15 @@ export function HeroSection({ onPlay }: HeroSectionProps) {
               </p>
             </div>
             <HeroStats track={currentTrack} />
-            <HeroActions track={currentTrack} onPlay={() => handlePlay()} />
+            <HeroActions
+              track={currentTrack}
+              onPlay={() => handlePlay(currentTrack)}
+            />
           </div>
-          <AlbumArt track={currentTrack} onPlay={() => handlePlay()} />
+          <AlbumArt
+            track={currentTrack}
+            onPlay={() => handlePlay(currentTrack)}
+          />
         </div>
       </div>
 

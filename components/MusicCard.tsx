@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Play,
   Pause,
@@ -19,6 +19,8 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Track } from "@/types/tracksType";
 import appLogo from "@/public/ahangbazar-logo.png";
+import { supabase } from "@/libs/supabase/supabaseClient";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface MusicCardProps {
   track: Track;
@@ -33,6 +35,47 @@ export function MusicCard({
   onDownload,
   variant = "grid",
 }: MusicCardProps) {
+  const [isLiked, setIsLiked] = useState(false);
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    setIsLiked(track.favorites > 0);
+  }, [track]);
+
+  const toggleFavorite = async () => {
+    const newLikedState = !isLiked;
+    setIsLiked(newLikedState);
+
+    try {
+      const { error } = await supabase
+        .from("songs")
+        .update({
+          favorites: newLikedState
+            ? track.favorites + 1
+            : Math.max(track.favorites - 1, 0),
+        })
+        .eq("id", track.id);
+
+      if (error) throw error;
+
+      queryClient.setQueryData<Track[]>(["recentTracks"], (old) =>
+        old?.map((t) =>
+          t.id === track.id
+            ? {
+                ...t,
+                favorites: newLikedState
+                  ? t.favorites + 1
+                  : Math.max(t.favorites - 1, 0),
+              }
+            : t
+        )
+      );
+    } catch (err) {
+      console.error(err);
+      setIsLiked(!newLikedState);
+    }
+  };
+
   if (variant === "list") {
     return (
       <div className="flex items-center p-4 rounded-2xl hover:bg-white/5 backdrop-blur-sm transition-all duration-300 group border border-white/5 hover:border-white/10">
@@ -87,7 +130,10 @@ export function MusicCard({
           <Button
             variant="ghost"
             size="sm"
-            className="text-gray-400 hover:text-pink-400 rounded-full"
+            className={`text-gray-400 hover:text-pink-400 rounded-full ${
+              isLiked ? "fill-pink-400 text-pink-400" : ""
+            }`}
+            onClick={toggleFavorite}
           >
             <Heart className="w-4 h-4" />
           </Button>
@@ -162,7 +208,10 @@ export function MusicCard({
             <Button
               variant="ghost"
               size="sm"
-              className="bg-black/40 backdrop-blur-md hover:bg-black/60 text-white border border-white/20 rounded-full w-10 h-10 hover:scale-110 transition-all duration-300"
+              className={`bg-black/40 backdrop-blur-md hover:bg-black/60 text-white border border-white/20 rounded-full w-10 h-10 hover:scale-110 transition-all duration-300 ${
+                isLiked ? "fill-pink-400 text-pink-400" : ""
+              }`}
+              onClick={toggleFavorite}
             >
               <Heart className="w-4 h-4" />
             </Button>

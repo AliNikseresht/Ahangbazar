@@ -9,7 +9,6 @@ interface SupabaseTrack {
   duration: string | null;
   cover: string | null;
   file_path: string | null;
-  // ممکن است آرایه یا یک آبجکت باشد
   artists?: { name: string } | { name: string }[];
 }
 
@@ -19,20 +18,19 @@ export function useRecentTracks() {
     queryFn: async () => {
       const { data } = await supabase
         .from("songs")
-        .select(`id, title, plays, duration, cover, file_path, artists(name)`)
+        .select(
+          `id, title, plays, duration, cover, file_path, favorites, artists(name)`
+        )
         .order("created_at", { ascending: false })
         .limit(100);
 
-      console.log(JSON.stringify(data, null, 2));
-
       return (
-        data?.map((track: SupabaseTrack) => {
+        data?.map((track: SupabaseTrack & { favorites?: number }) => {
           const audioUrl = track.file_path
             ? supabase.storage.from("music-files").getPublicUrl(track.file_path)
                 .data.publicUrl
             : undefined;
 
-          // گرفتن اسم هنرمند به شکل امن
           let artistName = "ناشناس";
           if (track.artists) {
             if (Array.isArray(track.artists)) {
@@ -50,6 +48,7 @@ export function useRecentTracks() {
             cover: track.cover || "/images/default-cover.jpg",
             plays: track.plays || 0,
             audio: audioUrl,
+            favorites: track.favorites ?? 0,
           };
         }) || []
       );

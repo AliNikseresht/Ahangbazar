@@ -2,15 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/libs/supabase/supabaseClient";
 import { Track } from "@/types/tracksType";
 
-export function useTrendingTracks(currentTrack?: Track) {
-  return useQuery<Track[]>({
-    queryKey: ["trendingTracks"],
+export function useTrendingTracks(limit = 5) {
+  return useQuery<Track[], number>({
+    queryKey: ["trendingTracks", limit],
     queryFn: async () => {
       const { data } = await supabase
         .from("songs")
-        .select(`id, title, plays, duration, cover, file_path, artists(name)`)
+        .select(
+          `id, title, plays, duration, cover, file_path, favorites, artists(name)`
+        )
         .order("plays", { ascending: false })
-        .limit(5);
+        .limit(limit);
 
       return (
         data?.map((track: any) => {
@@ -26,8 +28,8 @@ export function useTrendingTracks(currentTrack?: Track) {
             duration: track.duration || "0:00",
             cover: track.cover || "/images/default-cover.jpg",
             plays: track.plays || 0,
-            isPlaying: currentTrack?.id === track.id,
             audio: audioUrl,
+            favorites: track.favorites ?? 0,
           };
         }) || []
       );

@@ -16,6 +16,8 @@ import { Button } from "./ui/button";
 import { Slider } from "./ui/slider";
 import { Track } from "@/types/tracksType";
 import appLogo from "@/public/ahangbazar-logo.png";
+import { supabase } from "@/libs/supabase/supabaseClient";
+import { toast } from "sonner";
 
 interface MusicPlayerProps {
   currentTrack?: Track;
@@ -111,6 +113,31 @@ export function MusicPlayer({
     }
   };
 
+  const handleDownload = async () => {
+    if (!currentTrack?.audio) {
+      toast("فایل دانلود ندارد");
+      return;
+    }
+
+    try {
+      const response = await fetch(currentTrack.audio);
+      if (!response.ok) throw new Error("Download failed");
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${currentTrack.title}.mp3`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error(err);
+      toast("دانلود انجام نشد");
+    }
+  };
+
   const toggleMute = () => {
     if (!audioRef.current) return;
 
@@ -122,6 +149,44 @@ export function MusicPlayer({
     }
     setIsMuted(!isMuted);
   };
+
+  const toggleFavorite = async () => {
+    if (!currentTrack) return;
+
+    const newLikedState = !isLiked;
+    setIsLiked(newLikedState);
+
+    const currentFavorites = currentTrack.favorites ?? 0;
+
+    try {
+      const { error } = await supabase
+        .from("songs")
+        .update({
+          favorites: newLikedState
+            ? currentFavorites + 1
+            : Math.max(currentFavorites - 1, 0),
+        })
+        .eq("id", currentTrack.id);
+
+      if (error) {
+        console.error("Failed to update favorite:", error);
+        setIsLiked(!newLikedState); // rollback on error
+      } else {
+        currentTrack.favorites = newLikedState
+          ? currentFavorites + 1
+          : Math.max(currentFavorites - 1, 0);
+      }
+    } catch (err) {
+      console.error(err);
+      setIsLiked(!newLikedState); // rollback on error
+    }
+  };
+
+  useEffect(() => {
+    if (!currentTrack) return;
+
+    setIsLiked(currentTrack.favorites > 0);
+  }, [currentTrack]);
 
   if (!currentTrack) return null;
 
@@ -163,7 +228,7 @@ export function MusicPlayer({
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => setIsLiked(!isLiked)}
+                  onClick={toggleFavorite}
                   className={`text-gray-400 hover:text-pink-400 rounded-full transition-all duration-300 hover:scale-110`}
                 >
                   <Heart
@@ -172,6 +237,7 @@ export function MusicPlayer({
                     }`}
                   />
                 </Button>
+
                 <Button
                   variant="ghost"
                   size="sm"
@@ -183,6 +249,7 @@ export function MusicPlayer({
                   variant="ghost"
                   size="sm"
                   className="text-gray-400 hover:text-green-400 rounded-full transition-all duration-300 hover:scale-110"
+                  onClick={handleDownload}
                 >
                   <Download className="w-5 h-5" />
                 </Button>
@@ -407,15 +474,17 @@ export function MusicPlayer({
             <div className="flex items-center justify-center space-x-6">
               <Button
                 variant="ghost"
-                onClick={() => setIsLiked(!isLiked)}
-                className={`rounded-full w-12 h-12 transition-all duration-300 hover:scale-110 ${
-                  isLiked
-                    ? "text-pink-400 bg-pink-400/20"
-                    : "text-gray-400 hover:text-white hover:bg-white/10"
-                }`}
+                size="sm"
+                onClick={toggleFavorite}
+                className={`text-gray-400 hover:text-pink-400 rounded-full transition-all duration-300 hover:scale-110`}
               >
-                <Heart className={`w-6 h-6 ${isLiked ? "fill-current" : ""}`} />
+                <Heart
+                  className={`w-5 h-5 ${
+                    isLiked ? "fill-pink-400 text-pink-400" : ""
+                  }`}
+                />
               </Button>
+
               <Button
                 variant="ghost"
                 className="text-gray-400 hover:text-white hover:bg-white/10 rounded-full w-12 h-12 transition-all duration-300 hover:scale-110"
@@ -423,6 +492,7 @@ export function MusicPlayer({
                 <Share2 className="w-6 h-6" />
               </Button>
               <Button
+                onClick={handleDownload}
                 variant="ghost"
                 className="text-gray-400 hover:text-white hover:bg-white/10 rounded-full w-12 h-12 transition-all duration-300 hover:scale-110"
               >
