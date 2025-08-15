@@ -42,7 +42,7 @@ export function MusicSections({
   }, [trendingTracks, shouldScroll]);
 
   return (
-    <div className="container mx-auto px-6 py-16 space-y-20">
+    <div className="container mx-auto px-6 py-36 md:py-0 space-y-20">
       {/* Trending Section */}
       <section className="space-y-8" ref={trendingSectionRef}>
         <div className="flex items-center justify-between">

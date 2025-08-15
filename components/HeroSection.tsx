@@ -5,7 +5,7 @@ import { HeroBadges } from "./hero-section/HeroBadges";
 import { HeroStats } from "./hero-section/HeroStats";
 import { HeroActions } from "./hero-section/HeroActions";
 import { AlbumArt } from "./hero-section/AlbumArt";
-import { MusicPlayer } from "./MusicPlayer";
+import { MusicPlayer } from "./music-player/MusicPlayer";
 import { useTrendingTracks } from "@/hooks/useTrendingTracks";
 import { FeaturedTrack } from "@/types/heroSectionType";
 import { Track } from "@/types/tracksType";

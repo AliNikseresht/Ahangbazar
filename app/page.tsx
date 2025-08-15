@@ -2,12 +2,13 @@
 
 import { HeroSection } from "@/components/HeroSection";
 import { Header } from "@/components/layout/Header";
-import { MusicPlayer } from "@/components/MusicPlayer";
+import { MusicPlayer } from "@/components/music-player/MusicPlayer";
 import { MusicSections } from "@/components/MusicSections";
 import { Toaster } from "@/components/ui/sonner";
 import { useRecentTracks } from "@/hooks/useRecentTracks";
 import { useTrendingTracks } from "@/hooks/useTrendingTracks";
 import { Track } from "@/types/tracksType";
+import { downloadTrack } from "@/utils/downloadTrack";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -53,28 +54,6 @@ export default function App() {
     setIsPlaying(true);
   };
 
-  const handleDownload = async (track: Track) => {
-    if (!track.audio) return;
-
-    try {
-      const response = await fetch(track.audio);
-      if (!response.ok) throw new Error("Failed to download");
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = track.title + ".mp3";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error(err);
-      toast("خطا در دانلود فایل");
-    }
-  };
-
   const handleSearch = (query: string) => {
     if (query.trim()) {
       toast.success(`جستجو برای: ${query}`);
@@ -114,7 +93,7 @@ export default function App() {
         <HeroSection onPlay={handlePlayTrack} />
         <MusicSections
           onPlayTrack={handlePlayTrack}
-          onDownloadTrack={handleDownload}
+          onDownloadTrack={downloadTrack}
           currentTrack={currentTrack}
         />
       </main>

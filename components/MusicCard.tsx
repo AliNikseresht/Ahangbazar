@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Play,
   Pause,
   Download,
-  Heart,
   MoreHorizontal,
   Clock,
   Eye,
@@ -19,8 +18,6 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Track } from "@/types/tracksType";
 import appLogo from "@/public/ahangbazar-logo.png";
-import { supabase } from "@/libs/supabase/supabaseClient";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface MusicCardProps {
   track: Track;
@@ -35,47 +32,6 @@ export function MusicCard({
   onDownload,
   variant = "grid",
 }: MusicCardProps) {
-  const [isLiked, setIsLiked] = useState(false);
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    setIsLiked(track.favorites > 0);
-  }, [track]);
-
-  const toggleFavorite = async () => {
-    const newLikedState = !isLiked;
-    setIsLiked(newLikedState);
-
-    try {
-      const { error } = await supabase
-        .from("songs")
-        .update({
-          favorites: newLikedState
-            ? track.favorites + 1
-            : Math.max(track.favorites - 1, 0),
-        })
-        .eq("id", track.id);
-
-      if (error) throw error;
-
-      queryClient.setQueryData<Track[]>(["recentTracks"], (old) =>
-        old?.map((t) =>
-          t.id === track.id
-            ? {
-                ...t,
-                favorites: newLikedState
-                  ? t.favorites + 1
-                  : Math.max(t.favorites - 1, 0),
-              }
-            : t
-        )
-      );
-    } catch (err) {
-      console.error(err);
-      setIsLiked(!newLikedState);
-    }
-  };
-
   if (variant === "list") {
     return (
       <div className="flex items-center p-4 rounded-2xl hover:bg-white/5 backdrop-blur-sm transition-all duration-300 group border border-white/5 hover:border-white/10">
@@ -127,16 +83,6 @@ export function MusicCard({
         </div>
 
         <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <Button
-            variant="ghost"
-            size="sm"
-            className={`text-gray-400 hover:text-pink-400 rounded-full ${
-              isLiked ? "fill-pink-400 text-pink-400" : ""
-            }`}
-            onClick={toggleFavorite}
-          >
-            <Heart className="w-4 h-4" />
-          </Button>
           <Button
             variant="ghost"
             size="sm"
@@ -200,30 +146,6 @@ export function MusicCard({
               <Play className="w-7 h-7 text-white ml-0.5" />
             )}
           </Button>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-          <div className="flex space-x-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`bg-black/40 backdrop-blur-md hover:bg-black/60 text-white border border-white/20 rounded-full w-10 h-10 hover:scale-110 transition-all duration-300 ${
-                isLiked ? "fill-pink-400 text-pink-400" : ""
-              }`}
-              onClick={toggleFavorite}
-            >
-              <Heart className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="bg-black/40 backdrop-blur-md hover:bg-black/60 text-white border border-white/20 rounded-full w-10 h-10 hover:scale-110 transition-all duration-300"
-              onClick={() => onDownload?.(track)}
-            >
-              <Download className="w-4 h-4" />
-            </Button>
-          </div>
         </div>
 
         {/* Trending Badge */}
