@@ -36,23 +36,23 @@ export function Header({ onSearch, onUpload }: HeaderProps) {
           {/* Actions */}
           <div className="flex items-center space-x-4">
             <ActionButtons onUpload={onUpload} />
-            <Button
+            {/* <Button
               variant="ghost"
               size="sm"
               onClick={toggleDarkMode}
               className="text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300"
             >
               <Settings className="w-5 h-5" />
-            </Button>
-            <UserMenu />
+            </Button> */}
+            {/* <UserMenu /> */}
             {/* Mobile Menu */}
-            <Button
+            {/* <Button
               variant="ghost"
               size="sm"
               className="lg:hidden text-gray-300 hover:text-white hover:bg-white/10 rounded-xl"
             >
               <Menu className="w-5 h-5" />
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

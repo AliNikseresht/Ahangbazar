@@ -75,7 +75,7 @@ export function HeroSection({ onPlay }: HeroSectionProps) {
   if (!currentTrack) return null;
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative md:min-h-screen flex md:items-center justify-center overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700 ease-in-out"
         style={{
@@ -86,17 +86,17 @@ export function HeroSection({ onPlay }: HeroSectionProps) {
       />
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-purple-900/60 to-slate-900/80" />
 
-      <div className="relative z-10 container mx-auto px-6 py-20">
+      <div className="relative z-10 container mx-auto px-6 py-10 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           <div className="space-y-6 lg:space-y-8">
             <HeroBadges track={currentTrack} />
             <div className="space-y-2 lg:space-y-4">
-              <h1 className="text-xl md:text-xl lg:text-5xl font-black leading-tight">
+              <h1 className="text-lg md:text-xl lg:text-4xl font-black leading-tight">
                 <span className="bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent">
                   {currentTrack.title}
                 </span>
               </h1>
-              <p className="text-lg md:text-2xl text-gray-300">
+              <p className="text-base md:text-2xl text-gray-300">
                 اثری از{" "}
                 <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">
                   {currentTrack.artist}

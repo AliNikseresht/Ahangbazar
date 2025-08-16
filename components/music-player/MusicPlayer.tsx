@@ -182,10 +182,10 @@ export function MusicPlayer({
               />
             </div>
             <div className="min-w-0 flex-1">
-              <h4 className="truncate text-white font-semibold text-sm sm:text-lg">
+              <h4 className="truncate text-white font-semibold text-xs md:text-lg">
                 {currentTrack.title}
               </h4>
-              <p className="truncate text-gray-400 text-xs sm:text-sm">
+              <p className="truncate text-gray-400 text-xs md:text-sm">
                 {currentTrack.artist}
               </p>
             </div>
@@ -199,7 +199,7 @@ export function MusicPlayer({
                 className={`text-gray-400 hover:text-pink-400 rounded-full transition-all duration-300 hover:scale-110`}
               >
                 <Heart
-                  className={`w-4 h-4 sm:w-5 sm:h-5 ${
+                  className={`w-4 h-4 sm:w-10 sm:h-10 ${
                     isLiked ? "fill-pink-400 text-pink-400" : ""
                   }`}
                 />
@@ -210,7 +210,7 @@ export function MusicPlayer({
                 size="sm"
                 className="text-gray-400 hover:text-blue-400 rounded-full transition-all duration-300 hover:scale-110"
               >
-                <Share2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Share2 className="w-4 h-4 sm:w-10 sm:h-10" />
               </Button>
 
               <Button
@@ -219,13 +219,13 @@ export function MusicPlayer({
                 onClick={() => downloadTrack(currentTrack)}
                 className="text-gray-400 hover:text-green-400 rounded-full transition-all duration-300 hover:scale-110"
               >
-                <Download className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Download className="w-4 h-4 sm:w-10 sm:h-10" />
               </Button>
             </div>
           </div>
 
           {/* Player Controls */}
-          <div className="flex flex-col sm:flex-row items-center sm:space-x-6 space-y-3 sm:space-y-0 mt-2 sm:mt-0">
+          <div className="flex flex-col sm:flex-row items-center w-72 md:w-auto sm:space-x-6 space-y-3 sm:space-y-0 mt-2 sm:mt-0">
             <div className="flex items-center space-x-2 sm:space-x-4">
               <Button
                 variant="ghost"
@@ -237,7 +237,7 @@ export function MusicPlayer({
                     : "text-gray-400 hover:text-black"
                 }`}
               >
-                <Shuffle className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Shuffle className="w-4 h-4 sm:w-10 sm:h-10" />
               </Button>
 
               <Button
@@ -246,16 +246,16 @@ export function MusicPlayer({
                 onClick={onNext}
                 className="text-gray-400 hover:text-black rounded-full transition-all duration-300 hover:scale-110"
               >
-                <SkipForward className="w-4 h-4 sm:w-6 sm:h-6" />
+                <SkipForward className="w-4 h-4 sm:w-10 sm:h-10" />
               </Button>
               <Button
                 onClick={onPlayPause}
                 className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-2xl hover:scale-110 transition-all duration-300 border border-white/20 flex items-center justify-center"
               >
                 {isPlaying ? (
-                  <Pause className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
+                  <Pause className="w-5 h-5 sm:w-10 sm:h-10 text-white" />
                 ) : (
-                  <Play className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
+                  <Play className="w-5 h-5 sm:w-10 sm:h-10 text-white" />
                 )}
               </Button>
 
@@ -265,7 +265,7 @@ export function MusicPlayer({
                 onClick={onPrevious}
                 className="text-gray-400 hover:text-black rounded-full transition-all duration-300 hover:scale-110"
               >
-                <SkipBack className="w-4 h-4 sm:w-6 sm:h-6" />
+                <SkipBack className="w-4 h-4 sm:w-10 sm:h-10" />
               </Button>
 
               <Button
@@ -278,7 +278,7 @@ export function MusicPlayer({
                     : "text-gray-400 hover:text-black"
                 }`}
               >
-                <Repeat className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Repeat className="w-4 h-4 sm:w-10 sm:h-10" />
               </Button>
             </div>
 
@@ -301,14 +301,14 @@ export function MusicPlayer({
           </div>
 
           {/* Volume Control */}
-          <div className="flex items-center space-x-2 sm:space-x-3 mt-2 sm:mt-0 w-60 sm:w-44">
+          <div className="flex items-center space-x-2 sm:space-x-3 mt-2 sm:mt-0 w-74 sm:w-44">
             <Button
               variant="ghost"
               size="sm"
               onClick={toggleMute}
               className="text-gray-400 hover:text-black rounded-full transition-all duration-300 hover:scale-110"
             >
-              <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Volume2 className="w-4 h-4 sm:w-10 sm:h-10" />
             </Button>
 
             <Slider
@@ -324,7 +324,7 @@ export function MusicPlayer({
               size="sm"
               className="text-gray-400 hover:text-black rounded-full transition-all duration-300 hover:scale-110"
             >
-              <MoreHorizontal className="w-4 h-4 sm:w-5 sm:h-5" />
+              <MoreHorizontal className="w-4 h-4 sm:w-10 sm:h-10" />
             </Button>
           </div>
         </div>
