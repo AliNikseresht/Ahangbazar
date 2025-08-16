@@ -1,8 +1,8 @@
 export interface Category {
   id: string;
   name: string;
-  icon: any;
-  color: string;
-  tracks: number;
   description: string;
+  tracks: number;
+  icon: React.ElementType;
+  color: string;
 }

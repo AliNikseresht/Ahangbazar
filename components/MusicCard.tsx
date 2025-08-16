@@ -130,10 +130,16 @@ export function MusicCard({
       <div className="relative aspect-square overflow-hidden">
         {/* Cover */}
         <img
-          src={track.cover}
-          alt={track.title}
+          src={track.cover?.trim() ? track.cover : appLogo.src}
+          alt={track.title || "آهنگ ناشناس"}
+          onError={(e) => {
+            if (e.currentTarget.src !== appLogo.src) {
+              e.currentTarget.src = appLogo.src;
+            }
+          }}
           className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
         />
+
         {/* Overlay play button: visible on mobile, hover on desktop */}
         <div className="absolute inset-0 flex items-center justify-center opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 bg-black/30 sm:bg-transparent">
           <Button
