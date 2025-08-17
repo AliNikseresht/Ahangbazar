@@ -5,9 +5,11 @@ import { useRecentTracks } from "@/hooks/useRecentTracks";
 import { useCategories } from "@/hooks/useCategories";
 import { Track } from "@/types/tracksType";
 
-import { TrendingSection } from "./music-sections/TrendingSection";
-import CategoriesSection from "./music-sections/CategoriesSection";
-import RecentPopularSection from "./music-sections/RecentPopularSection";
+import {
+  TrendingSection,
+  CategoriesSection,
+  RecentPopularSection,
+} from "./music-sections";
 
 interface MusicSectionsProps {
   onPlayTrack: (track: Track) => void;

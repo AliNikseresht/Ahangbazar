@@ -8,4 +8,6 @@ export interface Track {
   isPlaying?: boolean;
   audio?: string;
   favorites: number;
+  genre?: string;
+  rating?: number;
 }

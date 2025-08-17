@@ -1,12 +1,8 @@
 import React from "react";
-import { Menu, Settings } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Logo } from "./header/Logo";
 import { NavLinks } from "./header/NavLinks";
 import { SearchBar } from "./header/SearchBar";
 import { ActionButtons } from "./header/ActionButtons";
-import { UserMenu } from "./header/UserMenu";
-import { useTheme } from "next-themes";
 
 export interface HeaderProps {
   onSearch?: (query: string) => void;
@@ -14,11 +10,6 @@ export interface HeaderProps {
 }
 
 export function Header({ onSearch, onUpload }: HeaderProps) {
-  const { theme, setTheme } = useTheme();
-
-  const toggleDarkMode = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/5 border-b border-white/10 shadow-2xl">
