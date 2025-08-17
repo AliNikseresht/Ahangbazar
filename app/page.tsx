@@ -54,12 +54,6 @@ export default function App() {
     setIsPlaying(true);
   };
 
-  const handleSearch = (query: string) => {
-    if (query.trim()) {
-      toast.success(`جستجو برای: ${query}`);
-    }
-  };
-
   const handleUpload = () => {
     toast.info("صفحه آپلود موزیک به زودی...");
   };
@@ -76,10 +70,7 @@ export default function App() {
   }, [recentTracks, trendingTracks, trackList]);
 
   return (
-    <div
-      className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden"
-      dir="rtl"
-    >
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden">
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
@@ -87,9 +78,19 @@ export default function App() {
         <div className="absolute top-40 left-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
       </div>
 
-      <Header onSearch={handleSearch} onUpload={handleUpload} />
+      <Header
+        onUpload={handleUpload}
+        onSearchResultClick={(track) => {
+          setTrackList((prev) => {
+            const exists = prev.find((t) => t.id === track.id);
+            return exists ? prev : [track, ...prev];
+          });
+          setCurrentTrack(track);
+          setIsPlaying(true);
+        }}
+      />
 
-      <main className="pb-24 relative z-10">
+      <main className="pb-4 relative z-10">
         <HeroSection onPlay={handlePlayTrack} />
         <MusicSections
           onPlayTrack={handlePlayTrack}

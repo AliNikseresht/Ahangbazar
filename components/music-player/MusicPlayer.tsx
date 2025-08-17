@@ -83,7 +83,12 @@ export function MusicPlayer({
           />
         </div>
       </div>
-      <audio ref={audioRef} />
+      <audio
+        ref={audioRef}
+        src={currentTrack.audio}
+        autoPlay={isPlaying}
+        onEnded={onNext}
+      />
     </>
   );
 }

@@ -15,13 +15,6 @@ export function ActionButtons({ onUpload }: ActionButtonsProps) {
         <Upload className="w-4 h-4 ml-2" />
         آپلود
       </Button>
-      {/* <Button
-        variant="ghost"
-        size="sm"
-        className="text-gray-300 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-300"
-      >
-        <Bell className="w-5 h-5" />
-      </Button> */}
     </>
   );
 }

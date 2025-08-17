@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Play } from "lucide-react";
 import { Button } from "../ui/button";
 import { FeaturedTrack } from "@/types/heroSectionType";
@@ -9,6 +10,18 @@ interface AlbumArtProps {
 }
 
 export function AlbumArt({ track, onPlay }: AlbumArtProps) {
+    // Validate URL
+  const isValidUrl = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const imageSrc = track.cover && track.cover.trim() && isValidUrl(track.cover) ? track.cover : appLogo.src;
+
   return (
     <div className="flex justify-center lg:justify-end">
       <div className="relative group w-60 h-60 md:w-80 md:h-80 lg:w-96 lg:h-96">
@@ -17,15 +30,13 @@ export function AlbumArt({ track, onPlay }: AlbumArtProps) {
           <div className="absolute inset-4 rounded-full border border-gray-700 opacity-50" />
           <div className="absolute inset-8 rounded-full border border-gray-700 opacity-30" />
           <div className="absolute inset-12 rounded-full overflow-hidden shadow-xl">
-            <img
-              src={
-                track.cover && track.cover.trim() ? track.cover : appLogo.src
-              }
+            <Image
+              src={imageSrc}
               alt={track.title}
-              onError={(e) => {
-                e.currentTarget.src = appLogo.src;
-              }}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              fill
+              style={{ objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, 24rem"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
           </div>

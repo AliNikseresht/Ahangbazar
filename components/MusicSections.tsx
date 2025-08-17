@@ -26,7 +26,7 @@ export function MusicSections({
   const { data: categories = [] } = useCategories();
 
   return (
-    <div className="container mx-auto px-6 pt-20 pb-36 md:pb-0 md:pt-0 space-y-20 md:mt-16">
+    <div className="container mx-auto px-6 space-y-20 md:mt-16">
       <TrendingSection
         tracks={trendingTracks}
         onPlayTrack={onPlayTrack}

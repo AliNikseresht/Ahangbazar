@@ -4,7 +4,6 @@ import { HeroBadges } from "./hero-section/HeroBadges";
 import { HeroStats } from "./hero-section/HeroStats";
 import { HeroActions } from "./hero-section/HeroActions";
 import { AlbumArt } from "./hero-section/AlbumArt";
-import { MusicPlayer } from "./music-player/MusicPlayer";
 import { useTrendingTracks } from "@/hooks/useTrendingTracks";
 import { useHeroCarousel } from "@/hooks/useHeroCarousel";
 import { BACKGROUND_BLUR, BACKGROUND_SCALE } from "./hero-section/hero";
@@ -20,11 +19,7 @@ export function HeroSection({ onPlay }: HeroSectionProps) {
 
   const {
     currentTrack,
-    isPlaying,
     handlePlay,
-    handlePlayPause,
-    handleNext,
-    handlePrevious,
   } = useHeroCarousel(tracks, onPlay);
 
   if (!currentTrack) return null;
@@ -73,14 +68,7 @@ export function HeroSection({ onPlay }: HeroSectionProps) {
         </div>
       </div>
 
-      {/* Music Player */}
-      <MusicPlayer
-        currentTrack={currentTrack}
-        isPlaying={isPlaying}
-        onPlayPause={handlePlayPause}
-        onNext={handleNext}
-        onPrevious={handlePrevious}
-      />
+
     </section>
   );
 }

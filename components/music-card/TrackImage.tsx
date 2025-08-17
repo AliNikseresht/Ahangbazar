@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import appLogo from "@/public/ahangbazar-logo.png";
+import Image from "next/image";
 
 export const TrackImage = memo(function TrackImage({
   src,
@@ -10,16 +11,26 @@ export const TrackImage = memo(function TrackImage({
   alt: string;
   className?: string;
 }) {
-  const safeSrc = src && src.trim() ? src : appLogo.src;
+  // Validate URL
+  const isValidUrl = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const safeSrc = src && src.trim() && isValidUrl(src) ? src : appLogo.src;
+
   return (
-    <img
+    <Image
       src={safeSrc}
       alt={alt}
-      onError={(e) => {
-        const img = e.currentTarget;
-        if (img.src !== appLogo.src) img.src = appLogo.src;
-      }}
       className={className}
+      fill
+      style={{ objectFit: "cover" }}
+      sizes="(max-width: 768px) 100vw, 50vw"
     />
   );
 });

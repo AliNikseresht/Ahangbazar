@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import Image from "next/image";
 import { Button } from "../ui/button";
 import { Heart, Share2, Download } from "lucide-react";
 import { Track } from "@/types/tracksType";
@@ -13,14 +14,31 @@ interface TrackInfoProps {
 export const TrackInfo = memo(function TrackInfo({ track }: TrackInfoProps) {
   const { isLiked, toggleFavorite } = useFavoriteTrack(track);
 
+  // Validate URL
+  const isValidUrl = (url: string) => {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  const imageSrc =
+    track.cover && track.cover.trim() && isValidUrl(track.cover)
+      ? track.cover
+      : appLogo.src;
+
   return (
     <div className="flex items-center space-x-3 flex-1 min-w-0">
       <div className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shadow-xl">
-        <img
-          src={track.cover?.trim() ? track.cover : appLogo.src}
+        <Image
+          src={imageSrc}
           alt={track.title}
-          onError={(e) => (e.currentTarget.src = appLogo.src)}
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+          fill
+          style={{ objectFit: "cover" }}
+          sizes="(max-width: 768px) 100vw, 4rem"
         />
       </div>
       <div className="min-w-0 flex-1">
@@ -40,10 +58,16 @@ export const TrackInfo = memo(function TrackInfo({ track }: TrackInfoProps) {
           className={`text-gray-400 hover:text-pink-400 rounded-full transition-all duration-300 hover:scale-110`}
         >
           <Heart
-            className={`w-4 h-4 sm:w-10 sm:h-10 ${isLiked ? "fill-pink-400 text-pink-400" : ""}`}
+            className={`w-4 h-4 sm:w-10 sm:h-10 ${
+              isLiked ? "fill-pink-400 text-pink-400" : ""
+            }`}
           />
         </Button>
-        <Button variant="ghost" size="sm" className="text-gray-400 hover:text-blue-400 rounded-full">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-gray-400 hover:text-blue-400 rounded-full"
+        >
           <Share2 className="w-4 h-4 sm:w-10 sm:h-10" />
         </Button>
         <Button
