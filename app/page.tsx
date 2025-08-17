@@ -90,7 +90,7 @@ export default function App() {
         }}
       />
 
-      <main className="pb-4 relative z-10">
+      <main className="pb-24 relative z-10">
         <HeroSection onPlay={handlePlayTrack} />
         <MusicSections
           onPlayTrack={handlePlayTrack}

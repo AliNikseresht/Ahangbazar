@@ -10,9 +10,10 @@ export function useTrendingTracks(limit = 5) {
       const { data } = await supabase
         .from("songs")
         .select(
-          `id, title, plays, duration, cover_url, file_path, favorites, artists(name)`
+          `id, title, favorites, duration, cover_url, file_path, artists(name)`
         )
-        .order("plays", { ascending: false })
+        .gt("favorites", 0)
+        .order("favorites", { ascending: false })
         .limit(limit);
 
       return (
@@ -28,9 +29,8 @@ export function useTrendingTracks(limit = 5) {
             artist: track.artists?.name,
             duration: track.duration || "0:00",
             cover: track.cover_url || appLogo.src,
-            plays: track.plays || 0,
-            audio: audioUrl,
             favorites: track.favorites ?? 0,
+            audio: audioUrl,
           };
         }) || []
       );

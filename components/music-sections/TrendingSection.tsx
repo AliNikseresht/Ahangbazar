@@ -18,7 +18,7 @@ export function TrendingSection({
   onPlayTrack,
   onDownloadTrack,
 }: TrendingSectionProps) {
-  const [visibleCount, setVisibleCount] = useState(10);
+  const [visibleCount, setVisibleCount] = useState(5);
   const { data: trendingTracks = [] } = useTrendingTracks(visibleCount);
   const trendingSectionRef = useRef<HTMLDivElement>(null);
   const [shouldScroll, setShouldScroll] = useState(false);
