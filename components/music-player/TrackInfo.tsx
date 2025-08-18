@@ -42,12 +42,12 @@ export const TrackInfo = memo(function TrackInfo({ track }: TrackInfoProps) {
         />
       </div>
       <div className="min-w-0 flex-1">
-        <h4 className="truncate text-white font-semibold text-xs md:text-lg">
+        <h2 className="truncate text-white font-semibold text-xs md:text-lg">
           {track.title}
-        </h4>
-        <p className="truncate text-gray-400 text-xs md:text-sm">
+        </h2>
+        <h3 className="truncate text-gray-400 text-xs md:text-sm">
           {track.artist}
-        </p>
+        </h3>
       </div>
 
       <div className="flex items-center space-x-2">

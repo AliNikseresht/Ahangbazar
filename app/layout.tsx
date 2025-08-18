@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
-  title: "آهنگ بازار - دانلود آهنگ جدید",
+  title: "آهنگ بازار - دانلود آهنگ جدید ایرانی | آپدیت روزانه",
   description: "مرجع دانلود انواع آهنگ‌های جدید و قدیمی با کیفیت بالا.",
   keywords: "دانلود آهنگ, دانلود آهنگ جدید, آهنگ ایرانی, آهنگ بازار",
   authors: [{ name: "آهنگ بازار" }],

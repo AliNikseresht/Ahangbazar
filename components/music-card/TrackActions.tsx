@@ -27,11 +27,11 @@ export const TrackActions = memo(function TrackActions({
       </Button>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white rounded-full w-8 h-8" aria-label="More actions">
+          <Button variant="ghost" size="icon" className="text-gray-400 hover:text-black rounded-full w-8 h-8" aria-label="More actions">
             <MoreHorizontal className="w-4 h-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-slate-800/90 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl">
+        <DropdownMenuContent className="bg-slate-100/90 backdrop-blur-xl border border-white/10 rounded-xl sm:rounded-2xl cursor-pointer">
           <DropdownMenuItem>{mergedLabels.addToPlaylist}</DropdownMenuItem>
           <DropdownMenuItem>{mergedLabels.share}</DropdownMenuItem>
           <DropdownMenuItem>{mergedLabels.viewArtist}</DropdownMenuItem>

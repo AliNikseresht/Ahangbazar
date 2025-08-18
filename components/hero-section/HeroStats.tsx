@@ -19,9 +19,9 @@ export function HeroStats({ track }: HeroStatsProps) {
         </div>
         <span className="font-semibold">{track.rating}</span>
       </div>
-      <div className="text-lg">
+      <h4 className="text-lg">
         {(track.plays / 1000000).toFixed(1)}M پخش
-      </div>
+      </h4>
       <div className="text-lg">{track.duration}</div>
     </div>
   );

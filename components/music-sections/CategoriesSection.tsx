@@ -18,9 +18,9 @@ export default function CategoriesSection({
           <h2 className="text-lg sm:text-2xl md:text-4xl font-black text-white">
             دسته‌بندی‌ها
           </h2>
-          <p className="text-gray-400 text-sm sm:text-base">
+          <h3 className="text-gray-400 text-sm sm:text-base">
             کاوش در ژانرهای مختلف موسیقی
-          </p>
+          </h3>
         </div>
       </div>
 
@@ -40,10 +40,10 @@ export default function CategoriesSection({
                     <IconComponent className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </div>
                   <div className="text-right">
-                    <div className="text-lg sm:text-2xl font-bold text-white">
+                    <h4 className="text-lg sm:text-2xl font-bold text-white">
                       {category.tracks}
-                    </div>
-                    <div className="text-xs sm:text-sm text-gray-400">آهنگ</div>
+                    </h4>
+                    <h5 className="text-xs sm:text-sm text-gray-400">آهنگ</h5>
                   </div>
                 </div>
 
@@ -51,9 +51,9 @@ export default function CategoriesSection({
                   <h3 className="text-lg sm:text-2xl font-bold text-white group-hover:text-purple-300 transition-colors duration-300">
                     {category.name}
                   </h3>
-                  <p className="text-gray-400 text-xs sm:text-sm mt-1 group-hover:text-gray-300 transition-colors duration-300">
+                  <h6 className="text-gray-400 text-xs sm:text-sm mt-1 group-hover:text-gray-300 transition-colors duration-300">
                     {category.description}
-                  </p>
+                  </h6>
                 </div>
 
                 {/* Progress indicator */}

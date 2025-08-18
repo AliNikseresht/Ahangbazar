@@ -47,7 +47,7 @@ export function TrendingSection({
               <h2 className="text-xl md:text-4xl font-black text-white">
                 داغ‌ترین‌ها
               </h2>
-              <p className="text-gray-400">آهنگ‌های پرشنونده این هفته</p>
+              <h3 className="text-gray-400">آهنگ‌های پرشنونده این هفته</h3>
             </div>
           </div>
         </div>

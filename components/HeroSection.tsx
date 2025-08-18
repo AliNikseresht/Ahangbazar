@@ -17,10 +17,7 @@ export function HeroSection({ onPlay }: HeroSectionProps) {
   const { data } = useTrendingTracks();
   const tracks = data as Track[] | undefined;
 
-  const {
-    currentTrack,
-    handlePlay,
-  } = useHeroCarousel(tracks, onPlay);
+  const { currentTrack, handlePlay } = useHeroCarousel(tracks, onPlay);
 
   if (!currentTrack) return null;
 
@@ -43,17 +40,17 @@ export function HeroSection({ onPlay }: HeroSectionProps) {
           <div className="space-y-6 lg:space-y-8">
             <HeroBadges track={currentTrack} />
             <div className="space-y-2 lg:space-y-4">
-              <h1 className="text-lg md:text-xl lg:text-4xl font-black leading-tight">
+              <h2 className="text-lg md:text-xl lg:text-4xl font-black leading-tight">
                 <span className="bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent">
                   {currentTrack.title}
                 </span>
-              </h1>
-              <p className="text-base md:text-2xl text-gray-300">
+              </h2>
+              <h3 className="text-base md:text-2xl text-gray-300">
                 اثری از{" "}
                 <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">
                   {currentTrack.artist}
                 </span>
-              </p>
+              </h3>
             </div>
             <HeroStats track={currentTrack} />
             <HeroActions
@@ -67,8 +64,6 @@ export function HeroSection({ onPlay }: HeroSectionProps) {
           />
         </div>
       </div>
-
-
     </section>
   );
 }

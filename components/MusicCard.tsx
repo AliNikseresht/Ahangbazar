@@ -38,12 +38,12 @@ export const MusicCard = memo(function MusicCard({
         </div>
 
         <div className="flex-1 min-w-0">
-          <h4 className="truncate text-white font-semibold text-sm sm:text-base">
+          <h2 className="truncate text-white font-semibold text-sm sm:text-base">
             {track.title}
-          </h4>
-          <p className="text-gray-400 truncate text-xs sm:text-sm">
+          </h2>
+          <h3 className="text-gray-400 truncate text-xs sm:text-sm">
             {track.artist}
-          </p>
+          </h3>
         </div>
 
         <TrackStats
@@ -78,12 +78,12 @@ export const MusicCard = memo(function MusicCard({
 
       <div className="p-3 sm:p-6 space-y-1.5 sm:space-y-3">
         <div>
-          <h3 className="truncate text-white font-semibold text-sm sm:text-lg group-hover:text-purple-300 transition-colors duration-300">
+          <h2 className="truncate text-white font-semibold text-sm sm:text-lg group-hover:text-purple-300 transition-colors duration-300">
             {track.title}
-          </h3>
-          <p className="text-gray-400 truncate text-xs sm:text-sm group-hover:text-gray-300 transition-colors duration-300">
+          </h2>
+          <h3 className="text-gray-400 truncate text-xs sm:text-sm group-hover:text-gray-300 transition-colors duration-300">
             {track.artist}
-          </p>
+          </h3>
         </div>
 
         <TrackStats
