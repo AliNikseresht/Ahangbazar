@@ -1,10 +1,10 @@
 "use client";
 
-import { HeroSection } from "@/components/HeroSection";
 import { Header } from "@/components/layout/Header";
 import { MusicPlayer } from "@/components/music-player/MusicPlayer";
 import { MusicSections } from "@/components/MusicSections";
 import { Toaster } from "@/components/ui/sonner";
+import { useCategories } from "@/hooks/useCategories";
 import { useRecentTracks } from "@/hooks/useRecentTracks";
 import { useTrendingTracks } from "@/hooks/useTrendingTracks";
 import { Track } from "@/types/tracksType";
@@ -22,6 +22,7 @@ export default function App() {
 
   const { data: trendingTracks = [] } = useTrendingTracks(10);
   const { data: recentTracks = [] } = useRecentTracks();
+  const { data: categories = [] } = useCategories();
 
   const handlePlayTrack = (track: Track) => {
     const index = trackList.findIndex((t) => t.id === track.id);
@@ -70,7 +71,7 @@ export default function App() {
   }, [recentTracks, trendingTracks, trackList]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white relative overflow-hidden">
+    <div>
       {/* Animated background elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
@@ -91,8 +92,12 @@ export default function App() {
       />
 
       <main className="pb-24 relative z-10">
-        <HeroSection onPlay={handlePlayTrack} />
+        {/* <HeroSection tracks={trendingTracks} onPlay={handlePlayTrack} /> */}
+
         <MusicSections
+          trendingTracks={trendingTracks}
+          recentTracks={recentTracks}
+          categories={categories}
           onPlayTrack={handlePlayTrack}
           onDownloadTrack={downloadTrack}
           currentTrack={currentTrack}

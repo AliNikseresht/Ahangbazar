@@ -31,6 +31,7 @@ export const TrackImage = memo(function TrackImage({
       fill
       style={{ objectFit: "cover" }}
       sizes="(max-width: 768px) 100vw, 50vw"
+      priority
     />
   );
 });

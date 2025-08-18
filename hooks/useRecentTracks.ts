@@ -2,16 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/libs/supabase/supabaseClient";
 import { Track } from "@/types/tracksType";
 import appLogo from "@/public/ahangbazar-logo.png";
-
-interface SupabaseTrack {
-  id: string;
-  title: string;
-  plays: number | null;
-  duration: string | null;
-  cover_url: string | null;
-  file_path: string | null;
-  artists?: { name: string } | { name: string }[];
-}
+import { SupabaseTrack } from "@/types/supabaseTrack";
 
 export function useRecentTracks() {
   return useQuery<Track[]>({

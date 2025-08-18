@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-
 import { ChevronLeft, Flame } from "lucide-react";
-import { useTrendingTracks } from "@/hooks/useTrendingTracks";
 import { Track } from "@/types/tracksType";
 import { MusicCard } from "../MusicCard";
 import { Button } from "../ui/button";
@@ -15,11 +13,11 @@ interface TrendingSectionProps {
 }
 
 export function TrendingSection({
+  tracks,
   onPlayTrack,
   onDownloadTrack,
 }: TrendingSectionProps) {
   const [visibleCount, setVisibleCount] = useState(5);
-  const { data: trendingTracks = [] } = useTrendingTracks(visibleCount);
   const trendingSectionRef = useRef<HTMLDivElement>(null);
   const [shouldScroll, setShouldScroll] = useState(false);
 
@@ -33,7 +31,7 @@ export function TrendingSection({
       trendingSectionRef.current?.scrollIntoView({ behavior: "smooth" });
       setShouldScroll(false);
     }
-  }, [trendingTracks, shouldScroll]);
+  }, [tracks, shouldScroll]);
 
   return (
     <section className="space-y-8" ref={trendingSectionRef}>
@@ -54,7 +52,7 @@ export function TrendingSection({
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-        {trendingTracks.map((track) => (
+        {tracks.slice(0, visibleCount).map((track) => (
           <MusicCard
             key={track.id}
             track={track}
@@ -65,7 +63,7 @@ export function TrendingSection({
         ))}
       </div>
 
-      {trendingTracks.length >= visibleCount && (
+      {tracks.length > visibleCount && (
         <div className="flex justify-center mt-6">
           <Button
             variant="ghost"

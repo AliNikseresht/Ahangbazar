@@ -4,19 +4,16 @@ import { HeroBadges } from "./hero-section/HeroBadges";
 import { HeroStats } from "./hero-section/HeroStats";
 import { HeroActions } from "./hero-section/HeroActions";
 import { AlbumArt } from "./hero-section/AlbumArt";
-import { useTrendingTracks } from "@/hooks/useTrendingTracks";
 import { useHeroCarousel } from "@/hooks/useHeroCarousel";
 import { BACKGROUND_BLUR, BACKGROUND_SCALE } from "./hero-section/hero";
 import { Track } from "@/types/tracksType";
 
 interface HeroSectionProps {
   onPlay?: (track: Track) => void;
+  tracks?: Track[];
 }
 
-export function HeroSection({ onPlay }: HeroSectionProps) {
-  const { data } = useTrendingTracks();
-  const tracks = data as Track[] | undefined;
-
+export function HeroSection({ onPlay, tracks }: HeroSectionProps) {
   const { currentTrack, handlePlay } = useHeroCarousel(tracks, onPlay);
 
   if (!currentTrack) return null;

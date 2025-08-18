@@ -10,4 +10,5 @@ export interface Track {
   favorites: number;
   genre?: string;
   rating?: number;
+  file_path?: string;
 }

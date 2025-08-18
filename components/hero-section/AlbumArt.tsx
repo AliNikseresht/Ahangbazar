@@ -37,6 +37,7 @@ export function AlbumArt({ track, onPlay }: AlbumArtProps) {
               fill
               style={{ objectFit: "cover" }}
               sizes="(max-width: 768px) 100vw, 24rem"
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
           </div>

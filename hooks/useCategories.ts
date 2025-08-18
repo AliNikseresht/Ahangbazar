@@ -7,30 +7,42 @@ export function useCategories() {
   return useQuery<Category[]>({
     queryKey: ["categories"],
     queryFn: async () => {
-      const { data } = await supabase
+      const { data: categories } = await supabase
         .from("categories")
         .select(`id, name`)
         .limit(6);
 
-      const icons = [Zap, Star, Flame, Music, Radio, Disc3];
-      const colors = [
-        "from-cyan-500 to-blue-600",
-        "from-pink-500 to-rose-600",
-        "from-red-500 to-orange-600",
-        "from-purple-500 to-indigo-600",
-        "from-yellow-500 to-amber-600",
-        "from-green-500 to-emerald-600",
-      ];
+      if (!categories) return [];
 
-      return (
-        data?.map((cat, i) => ({
-          ...cat,
-          icon: icons[i] || Music,
-          color: colors[i] || "from-gray-500 to-gray-700",
-          tracks: 0,
-          description: "",
-        })) || []
+      const categoriesWithTracks = await Promise.all(
+        categories.map(async (cat) => {
+          const { count } = await supabase
+            .from("songs")
+            .select("*", { count: "exact", head: true })
+            .eq("category_id", cat.id);
+
+          const icons = [Zap, Star, Flame, Music, Radio, Disc3];
+          const colors = [
+            "from-cyan-500 to-blue-600",
+            "from-pink-500 to-rose-600",
+            "from-red-500 to-orange-600",
+            "from-purple-500 to-indigo-600",
+            "from-yellow-500 to-amber-600",
+            "from-green-500 to-emerald-600",
+          ];
+
+          return {
+            ...cat,
+            icon: icons[categories.indexOf(cat)] || Music,
+            color:
+              colors[categories.indexOf(cat)] || "from-gray-500 to-gray-700",
+            tracks: count || 0,
+            description: "",
+          };
+        })
       );
+
+      return categoriesWithTracks;
     },
   });
 }
