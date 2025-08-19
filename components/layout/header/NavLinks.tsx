@@ -2,8 +2,8 @@ import Link from "next/link";
 
 const links = [
   { label: "خانه", href: "/", active: true },
-  { label: "پلی‌لیست", href: "/artists" },
-  { label: "هنرمندان", href: "#" },
+  { label: "پلی‌لیست", href: "/play-list" },
+  { label: "هنرمندان", href: "/artists" },
 ];
 
 export function NavLinks() {

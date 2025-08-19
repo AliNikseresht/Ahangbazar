@@ -6,6 +6,8 @@ import MusicCardList from "./MusicCardList";
 import { MusicPlayer } from "@/components/music-player/MusicPlayer";
 import { downloadTrack } from "@/utils/downloadTrack";
 import { getAudioUrl } from "@/utils/getAudioUrl";
+import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 
 interface CategoryPageClientProps {
   tracks: Track[];
@@ -64,8 +66,20 @@ export default function CategoryPageClient({
 
   return (
     <div className="p-6 space-y-6">
-      <h1 className="text-3xl font-extrabold text-white">دسته‌بندی {categoryName}</h1>
-      <h2 className="text-lg text-gray-400">آهنگ‌های این دسته‌بندی</h2>
+      <div className="flex justify-between w-full items-center">
+        <div>
+          <h1 className="text-3xl font-extrabold text-white">
+            دسته‌بندی {categoryName}
+          </h1>
+          <h2 className="text-lg text-gray-400">آهنگ‌های این دسته‌بندی</h2>
+        </div>
+        <Link href="/">
+          <h3 className="text-purple-400 hover:text-white hover:bg-white/10 rounded-xl group transition-all duration-300 flex items-center py-1.5 px-3">
+            بازگشت
+            <ChevronLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
+          </h3>
+        </Link>
+      </div>
 
       {trackList.length ? (
         <MusicCardList
