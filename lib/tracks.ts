@@ -15,6 +15,15 @@ export type Track = {
   favorites: number;
 };
 
+function formatDuration(d: unknown): string {
+  const n = Number(d);
+  if (typeof d === "string" && d.includes(":")) return d;
+  if (!Number.isFinite(n) || n <= 0) return "0:00";
+  const m = Math.floor(n / 60);
+  const s = Math.floor(n % 60);
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
 function toPublicAudioUrl(filePath: string | null): string | null {
   if (!filePath) return null;
   const encoded = filePath
@@ -62,7 +71,7 @@ export async function getTracks(limit = 200): Promise<Track[]> {
       faArtist: artist?.fa_name ?? null,
       art: row.cover_url ?? null,
       audioUrl: toPublicAudioUrl(row.file_path),
-      time: row.duration ?? "0:00",
+      time: formatDuration(row.duration),
       plays: row.plays ?? 0,
       favorites: row.favorites ?? 0,
     };

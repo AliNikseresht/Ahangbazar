@@ -1,5 +1,4 @@
-
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import localFont from "next/font/local";
 
@@ -7,7 +6,7 @@ import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 
 import { ThemeProvider } from "next-themes";
-import QueryProvider from "@/components/ahang/provider/AppProvider";
+import QueryProvider from "@/components/provider/AppProvider";
 
 const vazirmatn = localFont({
   src: [
@@ -59,12 +58,12 @@ export const metadata: Metadata = {
     siteName: "آهنگ بازار",
     locale: "fa_IR",
     type: "website",
+    images: [{ url: "/icon-512.png" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "آهنگ بازار | دانلود آهنگ جدید ایرانی",
-    description:
-      "جدیدترین آهنگ‌های ایرانی و موزیک‌های پرطرفدار در آهنگ بازار.",
+    description: "جدیدترین آهنگ‌های ایرانی و موزیک‌های پرطرفدار در آهنگ بازار.",
   },
   robots: {
     index: true,
@@ -79,6 +78,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0b0b0c",
+  colorScheme: "dark",
+};
+
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -86,11 +90,6 @@ const websiteSchema = {
   alternateName: "AhangBazar",
   url: siteUrl,
   inLanguage: "fa-IR",
-  potentialAction: {
-    "@type": "SearchAction",
-    target: `${siteUrl}/search?q={search_term_string}`,
-    "query-input": "required name=search_term_string",
-  },
 };
 
 export default function RootLayout({
@@ -99,11 +98,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={vazirmatn.variable}
-    >
+    <html lang="fa" suppressHydrationWarning className={vazirmatn.variable}>
       <body className={`${vazirmatn.className} min-h-screen flex flex-col`}>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-T9WXMWV5YR"
@@ -120,8 +115,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        <Script
-          id="website-schema"
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(websiteSchema).replace(/</g, "\\u003c"),
@@ -134,9 +128,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <QueryProvider>
-            {children}
-          </QueryProvider>
+          <QueryProvider>{children}</QueryProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,0 +1,15 @@
+.seo-page { min-height: 100vh; max-width: 920px; margin: 0 auto; padding: 40px 20px 80px; background: #0b0b0b; color: #f1ede4; }
+.seo-page a { color: #e8d5a6; text-decoration: none; }
+.seo-page a:hover { text-decoration: underline; }
+.seo-crumbs { font-size: 14px; opacity: 0.8; margin-bottom: 28px; }
+.seo-track, .seo-artist-head { display: flex; gap: 28px; align-items: flex-start; flex-wrap: wrap; }
+.seo-track img, .seo-artist-head img { width: 260px; height: 260px; object-fit: cover; border-radius: 16px; }
+.seo-page h1 { font-size: clamp(28px, 5vw, 44px); margin: 0 0 8px; line-height: 1.2; }
+.seo-sub { font-size: 18px; color: #e8d5a6; margin: 0 0 6px; }
+.seo-meta { opacity: 0.6; margin: 0 0 18px; font-size: 14px; }
+.seo-page audio { width: 100%; max-width: 420px; display: block; margin-bottom: 18px; }
+.seo-cta { display: inline-block; padding: 10px 20px; border: 1px solid #e8d5a6; border-radius: 999px; }
+.seo-section { margin-top: 44px; }
+.seo-section h2 { font-size: 22px; margin-bottom: 14px; }
+.seo-list { list-style: none; margin: 0; padding: 0; }
+.seo-list li { padding: 12px 0; border-bottom: 1px solid #ffffff14; display: flex; justify-content: space-between; gap: 12px; }
