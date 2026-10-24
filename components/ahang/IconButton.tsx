@@ -1,21 +1,28 @@
+"use client";
+
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+
+type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
+  label: string;
+  active?: boolean;
+  children: ReactNode;
+};
+
 export function IconButton({
   label,
+  active,
   children,
-  onClick,
-  active = false,
-}: {
-  label: string
-  children: React.ReactNode
-  onClick?: () => void
-  active?: boolean
-}) {
+  className = "",
+  ...rest
+}: Props) {
   return (
     <button
-      className={`icon-button ${active ? "active" : ""}`}
+      type="button"
       aria-label={label}
-      onClick={onClick}
+      className={`icon-btn ${active ? "active" : ""} ${className}`.trim()}
+      {...rest}
     >
       {children}
     </button>
-  )
+  );
 }

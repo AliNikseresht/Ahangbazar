@@ -1,19 +1,13 @@
-import { ChevronRight } from "lucide-react"
+type Props = {
+  title: string;
+  action?: string;
+};
 
-export function SectionTitle({
-  title,
-  action,
-}: {
-  title: string
-  action: string
-}) {
+export function SectionTitle({ title, action }: Props) {
   return (
     <div className="section-title">
       <h2>{title}</h2>
-      <button>
-        {action}
-        <ChevronRight size={15} />
-      </button>
+      {action && <button type="button">{action}</button>}
     </div>
-  )
+  );
 }

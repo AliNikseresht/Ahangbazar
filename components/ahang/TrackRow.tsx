@@ -1,41 +1,37 @@
-import { MoreHorizontal, Volume2 } from "lucide-react";
-import { IconButton } from "./IconButton";
-import type { Language } from "@/data/ahang";
-import type { Track } from "@/lib/tracks";
+"use client";
 
-export function TrackRow({
-  track,
-  language,
-  index,
-  play,
-  current = false,
-}: {
+import type { Language, Track } from "@/types";
+import { image } from "@/data/ahang";
+
+type Props = {
   track: Track;
   language: Language;
-  index: number;
+  index?: number;
   play: () => void;
   current?: boolean;
-}) {
+};
+
+export function TrackRow({ track, language, index, play, current }: Props) {
   const title = language === "fa" ? track.faTitle || track.title : track.title;
   const artist =
     language === "fa" ? track.faArtist || track.artist : track.artist;
 
   return (
-    <div className={`track-row ${current ? "current" : ""}`}>
-      <span>
-        {current ? <Volume2 size={14} /> : String(index + 1).padStart(2, "0")}
-      </span>
-      <button className="row-info" onClick={play}>
-        <img src={track.art || "/placeholder.png"} alt="" />
-        <span>
-          <b>{title}</b>
-          <small>{artist}</small>
+    <button
+      type="button"
+      className={`track-row ${current ? "current" : ""}`}
+      onClick={play}
+    >
+      {typeof index === "number" && (
+        <span className="track-index">
+          {String(index + 1).padStart(2, "0")}
         </span>
-      </button>
-      <small>{track.time}</small>
-      <IconButton label="More options">
-        <MoreHorizontal size={18} />
-      </IconButton>
-    </div>
+      )}
+      <img src={track.art || image.hero} alt="" />
+      <span className="track-meta">
+        <b>{title}</b>
+        <small>{artist}</small>
+      </span>
+    </button>
   );
 }

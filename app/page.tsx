@@ -3,7 +3,7 @@ import { getArtists } from "@/lib/artists";
 import { getCategories } from "@/lib/categories";
 import { enrichTracks } from "@/lib/enrich";
 import { getTracks } from "@/lib/tracks";
-import HomeClient from "@/components/layout/home-client";
+import HomeClient from "@/components/layout/HomeClient";
 
 export default async function Page() {
   "use cache";
