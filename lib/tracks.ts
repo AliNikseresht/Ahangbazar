@@ -1,19 +1,7 @@
 import { supabase } from "./supabase";
+import type { Track } from "@/types";
 
 const STORAGE_BASE = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/music-files`;
-
-export type Track = {
-  id: string;
-  title: string;
-  faTitle: string | null;
-  artist: string;
-  faArtist: string | null;
-  art: string | null;
-  audioUrl: string | null;
-  time: string;
-  plays: number;
-  favorites: number;
-};
 
 function formatDuration(d: unknown): string {
   const n = Number(d);

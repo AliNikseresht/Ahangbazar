@@ -9,7 +9,9 @@ export type Track = {
   faArtist?: string | null;
   art?: string | null;
   audioUrl?: string | null;
-  [key: string]: unknown;
+  time: string;
+  plays: number;
+  favorites: number;
 };
 
 export type Artist = {
@@ -17,13 +19,11 @@ export type Artist = {
   name: string;
   faName?: string | null;
   coverUrl?: string | null;
-  [key: string]: unknown;
 };
 
 export type Category = {
   id: string;
   name: string;
-  [key: string]: unknown;
 };
 
 export type PlayerState = {

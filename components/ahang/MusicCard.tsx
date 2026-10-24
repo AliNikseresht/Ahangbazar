@@ -1,6 +1,6 @@
 import { Pause, Play } from "lucide-react";
 import type { Language } from "@/data/ahang";
-import type { Track } from "@/lib/tracks";
+import { Track } from "@/types";
 
 export function MusicCard({
   track,

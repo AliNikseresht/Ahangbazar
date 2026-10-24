@@ -1,9 +1,8 @@
+import { Track } from "@/types";
 import type { Artist } from "./artists";
-import type { Track } from "./tracks";
 
 const key = (s: string) => s.toLowerCase().replace(/[-_]/g, " ").trim();
 
-// عکس خواننده برای آهنگ‌های بدون عکس + نام فارسی خواننده
 export function enrichTracks(tracks: Track[], artists: Artist[]): Track[] {
   const cover = new Map<string, string>();
   const fa = new Map<string, string>();
